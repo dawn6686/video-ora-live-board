@@ -4,14 +4,12 @@
 半决赛实时看板 — 数据抓取与快照更新脚本
 支持：
 1. 本地手动/定时运行，更新 data/snapshot.json 与 data/snapshot.js（供 file:// 直接打开）
-2. GitHub Actions 定时运行（每 10 分钟），自动记录历史分数变化事件（diff feed）
+2. GitHub Actions 定时运行（每 10 分钟），自动记录每个队伍每次提交与进步分数轨迹（sf_timeline & events）
 """
 
 import datetime
 import hashlib
 import json
-import os
-import sys
 import urllib.request
 from pathlib import Path
 
@@ -41,7 +39,7 @@ def fetch_stage(stage_name: str, timeout: int = 20, retries: int = 3) -> dict:
     }
     body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
     last_err = None
-    for attempt in range(retries):
+    for _ in range(retries):
         try:
             req = urllib.request.Request(
                 API_URL,
@@ -77,10 +75,126 @@ def parse_seconds_diff(t_start: str, t_end: str):
         return None
 
 
+def build_team_timelines_and_events(snapshots: list, r2_by_csbh: dict, qual_by_csbh: dict):
+    """
+    从历史快照序列重建：
+    1) 每个队伍的半决赛历次提交轨迹 team_timelines[csbh]
+    2) 全局每次提分/新提交事件列表 all_events（含单次进步分数 delta 与较复赛进步分数 delta_vs_r2）
+    """
+    team_timelines = {}
+    all_events = []
+
+    for snap_idx, snap in enumerate(snapshots):
+        captured_at = snap.get("captured_at", "")
+        scores_map = snap.get("scores", {})
+        for csbh, rec in scores_map.items():
+            score_str = rec.get("score", "")
+            if score_str in (None, ""):
+                continue
+            score_val = float(score_str)
+            tjsj = rec.get("tjsj", "")
+            dfsj = rec.get("dfsj", "")
+            rank_val = int(rec.get("rank", 0))
+            tdmc = rec.get("tdmc", "")
+            judge_sec = parse_seconds_diff(tjsj, dfsj)
+
+            r2_info = r2_by_csbh.get(csbh, {})
+            r2_score_str = r2_info.get("FS_", "")
+            r2_score = float(r2_score_str) if r2_score_str not in (None, "") else None
+            delta_vs_r2 = round(score_val - r2_score, 4) if r2_score is not None else None
+
+            tl = team_timelines.setdefault(csbh, [])
+            if not tl:
+                # 首次在半决赛快照中出现
+                step_entry = {
+                    "step": 1,
+                    "type": "initial_capture" if snap_idx == 0 else "new_submission",
+                    "score": score_val,
+                    "score_str": score_str,
+                    "prev_score": None,
+                    "prev_score_str": None,
+                    "delta_step": None,
+                    "r2_score": r2_score,
+                    "r2_score_str": r2_score_str,
+                    "delta_vs_r2": delta_vs_r2,
+                    "rank": rank_val,
+                    "prev_rank": None,
+                    "tjsj": tjsj,
+                    "dfsj": dfsj,
+                    "judge_sec": judge_sec,
+                    "detected_at": captured_at,
+                }
+                tl.append(step_entry)
+                if snap_idx > 0:
+                    all_events.append({
+                        "type": "new_submission",
+                        "step": 1,
+                        "detected_at": captured_at,
+                        "csbh": csbh,
+                        "tdmc": tdmc,
+                        "new_score": score_str,
+                        "prev_score": None,
+                        "delta": None,
+                        "r2_score": r2_score_str,
+                        "delta_vs_r2": delta_vs_r2,
+                        "new_rank": rank_val,
+                        "prev_rank": None,
+                        "tjsj": tjsj,
+                        "dfsj": dfsj,
+                        "judge_sec": judge_sec,
+                    })
+            else:
+                last_step = tl[-1]
+                # 只要分数变化，或者提交时间戳变化，就记为一次新提交尝试
+                if score_str != last_step["score_str"] or tjsj != last_step["tjsj"]:
+                    delta_step = round(score_val - last_step["score"], 4)
+                    ev_type = "score_update" if score_str != last_step["score_str"] else "resubmit_same_score"
+                    step_num = len(tl) + 1
+                    step_entry = {
+                        "step": step_num,
+                        "type": ev_type,
+                        "score": score_val,
+                        "score_str": score_str,
+                        "prev_score": last_step["score"],
+                        "prev_score_str": last_step["score_str"],
+                        "delta_step": delta_step,
+                        "r2_score": r2_score,
+                        "r2_score_str": r2_score_str,
+                        "delta_vs_r2": delta_vs_r2,
+                        "rank": rank_val,
+                        "prev_rank": last_step["rank"],
+                        "tjsj": tjsj,
+                        "dfsj": dfsj,
+                        "judge_sec": judge_sec,
+                        "detected_at": captured_at,
+                    }
+                    tl.append(step_entry)
+                    all_events.append({
+                        "type": ev_type,
+                        "step": step_num,
+                        "detected_at": captured_at,
+                        "csbh": csbh,
+                        "tdmc": tdmc,
+                        "new_score": score_str,
+                        "prev_score": last_step["score_str"],
+                        "delta": delta_step,
+                        "r2_score": r2_score_str,
+                        "delta_vs_r2": delta_vs_r2,
+                        "new_rank": rank_val,
+                        "prev_rank": last_step["rank"],
+                        "tjsj": tjsj,
+                        "dfsj": dfsj,
+                        "judge_sec": judge_sec,
+                    })
+
+    # Sort events by dfsj / detected_at descending
+    all_events.sort(key=lambda e: (e.get("dfsj") or e.get("detected_at") or ""), reverse=True)
+    return team_timelines, all_events
+
+
 def main():
     DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-    # 1. Load 77 qualifiers (copy from parent if not yet in DATA_DIR)
     parent_qual_file = BOARD_DIR.parent / "round2_official_awards_and_semifinal_qualifiers.json"
     if not QUALIFIERS_FILE.exists() and parent_qual_file.exists():
         raw_q = json.loads(parent_qual_file.read_text(encoding="utf-8"))
@@ -97,17 +211,14 @@ def main():
     now_iso = now_dt.isoformat(timespec="seconds")
     snap_id = now_dt.strftime("%Y%m%d_%H%M%S")
 
-    # 2. Fetch 半决赛 & 复赛
     sf_res = fetch_stage("半决赛")
     r2_res = fetch_stage("复赛")
 
     sf_rows = sf_res["response"].get("data") or []
     r2_rows = r2_res["response"].get("data") or []
 
-    sf_by_csbh = {row["CSBH_"]: row for row in sf_rows if "CSBH_" in row}
     r2_by_csbh = {row["CSBH_"]: row for row in r2_rows if "CSBH_" in row}
 
-    # 3. Load history for score change event tracking
     history = {"snapshots": [], "events": []}
     if HISTORY_FILE.exists():
         try:
@@ -115,70 +226,17 @@ def main():
         except Exception:
             pass
 
-    prev_scores = {}
-    if history.get("snapshots"):
-        last_snap = history["snapshots"][-1]
-        prev_scores = last_snap.get("scores", {})
-
     current_scores = {}
-    new_events = []
-
     for row in sf_rows:
         csbh = row.get("CSBH_", "")
-        score_str = row.get("FS_")
-        score_val = float(score_str) if score_str not in (None, "") else None
-        rank_val = int(row.get("XH_", 0))
-        tjsj = row.get("ZPZHTJSJ_", "")
-        dfsj = row.get("DFSJ_", "")
-        tdmc = row.get("TDMC_", "")
-        judge_sec = parse_seconds_diff(tjsj, dfsj)
-
         current_scores[csbh] = {
-            "rank": rank_val,
-            "score": score_str,
-            "tjsj": tjsj,
-            "dfsj": dfsj,
-            "tdmc": tdmc,
+            "rank": int(row.get("XH_", 0)),
+            "score": row.get("FS_"),
+            "tjsj": row.get("ZPZHTJSJ_", ""),
+            "dfsj": row.get("DFSJ_", ""),
+            "tdmc": row.get("TDMC_", ""),
         }
 
-        prev = prev_scores.get(csbh)
-        if prev is None:
-            # First time seen in history
-            if history.get("snapshots"):
-                new_events.append({
-                    "type": "new_submission",
-                    "detected_at": now_iso,
-                    "csbh": csbh,
-                    "tdmc": tdmc,
-                    "new_score": score_str,
-                    "prev_score": None,
-                    "delta": None,
-                    "new_rank": rank_val,
-                    "prev_rank": None,
-                    "tjsj": tjsj,
-                    "dfsj": dfsj,
-                    "judge_sec": judge_sec,
-                })
-        else:
-            prev_s = float(prev["score"]) if prev.get("score") not in (None, "") else None
-            if (score_str != prev.get("score")) or (tjsj != prev.get("tjsj")):
-                delta = round(score_val - prev_s, 4) if (score_val is not None and prev_s is not None) else None
-                new_events.append({
-                    "type": "score_update" if score_str != prev.get("score") else "resubmit_same_score",
-                    "detected_at": now_iso,
-                    "csbh": csbh,
-                    "tdmc": tdmc,
-                    "new_score": score_str,
-                    "prev_score": prev.get("score"),
-                    "delta": delta,
-                    "new_rank": rank_val,
-                    "prev_rank": prev.get("rank"),
-                    "tjsj": tjsj,
-                    "dfsj": dfsj,
-                    "judge_sec": judge_sec,
-                })
-
-    # Append snapshot to history only if scores/timestamps changed or history is empty
     state_fingerprint = hashlib.sha256(
         json.dumps(current_scores, sort_keys=True, ensure_ascii=False).encode("utf-8")
     ).hexdigest()
@@ -193,42 +251,34 @@ def main():
             "fingerprint": state_fingerprint,
             "scores": current_scores,
         })
-        # Keep last 200 snapshots in history.json to stay lightweight
-        history["snapshots"] = history["snapshots"][-200:]
+        history["snapshots"] = history["snapshots"][-300:]
 
-    if new_events:
-        history.setdefault("events", []).extend(new_events)
-        history["events"] = history["events"][-500:]
+    team_timelines, all_events = build_team_timelines_and_events(
+        history.get("snapshots", []), r2_by_csbh, qual_by_csbh
+    )
+    history["events"] = all_events[:500]
 
     HISTORY_FILE.write_text(
         json.dumps(history, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
-    # 4. Build unified 77-team dataset (plus any extra teams if API ever returns outside 77)
-    previous_snap_scores = (
-        history["snapshots"][-2]["scores"]
-        if len(history.get("snapshots", [])) >= 2
-        else {}
-    )
-
     unified_teams = []
     seen_csbh = set()
 
-    # First: all teams currently on Semifinal leaderboard in rank order
     for sf in sf_rows:
         csbh = sf["CSBH_"]
         seen_csbh.add(csbh)
         q_info = qual_by_csbh.get(csbh, {})
         r2_info = r2_by_csbh.get(csbh, {})
-        prev_info = previous_snap_scores.get(csbh, {})
+        tl = team_timelines.get(csbh, [])
 
         sf_score = float(sf["FS_"]) if sf.get("FS_") not in (None, "") else None
         r2_score = float(r2_info["FS_"]) if r2_info.get("FS_") not in (None, "") else None
-        prev_score = float(prev_info["score"]) if prev_info.get("score") not in (None, "") else None
 
         delta_vs_r2 = round(sf_score - r2_score, 4) if (sf_score is not None and r2_score is not None) else None
-        delta_vs_prev = round(sf_score - prev_score, 4) if (sf_score is not None and prev_score is not None) else None
-        rank_delta_vs_prev = (prev_info["rank"] - int(sf["XH_"])) if prev_info.get("rank") else None
+        last_step_delta = tl[-1]["delta_step"] if len(tl) >= 2 else None
+        first_sf_score = tl[0]["score"] if tl else sf_score
+        delta_vs_first_sf = round(sf_score - first_sf_score, 4) if (sf_score is not None and first_sf_score is not None and len(tl) >= 2) else None
 
         tjsj = sf.get("ZPZHTJSJ_", "")
         dfsj = sf.get("DFSJ_", "")
@@ -252,11 +302,12 @@ def main():
             "r2_score_str": r2_info.get("FS_", ""),
             "r2_tjsj": r2_info.get("ZPZHTJSJ_", ""),
             "delta_vs_r2": delta_vs_r2,
-            "delta_vs_prev": delta_vs_prev,
-            "rank_delta_vs_prev": rank_delta_vs_prev,
+            "sf_submit_count": len(tl),
+            "last_step_delta": last_step_delta,
+            "delta_vs_first_sf": delta_vs_first_sf,
+            "sf_timeline": tl,
         })
 
-    # Second: qualified teams from the 77-team official list not yet on Semifinal leaderboard
     unsubmitted = []
     for q in qualifiers_77:
         csbh = q["csbh"]
@@ -282,13 +333,16 @@ def main():
             "r2_score_str": r2_info.get("FS_", ""),
             "r2_tjsj": r2_info.get("ZPZHTJSJ_", ""),
             "delta_vs_r2": None,
-            "delta_vs_prev": None,
-            "rank_delta_vs_prev": None,
+            "sf_submit_count": 0,
+            "last_step_delta": None,
+            "delta_vs_first_sf": None,
+            "sf_timeline": [],
         })
 
-    # Sort unsubmitted by their R2 rank (ascending) then award seq
     unsubmitted.sort(key=lambda x: (x["r2_rank"] if x["r2_rank"] is not None else 9999, x["r2_award_seq"] or 9999))
     unified_teams.extend(unsubmitted)
+
+    multi_submit_teams = sum(1 for t in unified_teams if t.get("sf_submit_count", 0) >= 2)
 
     snapshot_payload = {
         "competition": "基于视频大模型的通用视频高光剪辑",
@@ -312,11 +366,13 @@ def main():
             "provincial_second_qualified": sum(1 for q in qualifiers_77 if q.get("award") == "省赛二等奖"),
             "sf_scored_count": len(sf_rows),
             "sf_unsubmitted_count": len(unsubmitted),
+            "multi_submit_teams_count": multi_submit_teams,
+            "captured_events_count": len(all_events),
             "top1_team": unified_teams[0]["tdmc"] if sf_rows else None,
             "top1_score": unified_teams[0]["sf_score_str"] if sf_rows else None,
         },
         "teams": unified_teams,
-        "history_events": history.get("events", [])[-100:],
+        "history_events": all_events[:200],
         "history_snapshots_meta": [
             {
                 "snapshot_id": s["snapshot_id"],
@@ -324,7 +380,7 @@ def main():
                 "scored_count": s["scored_count"],
                 "top1_score": next(iter(s["scores"].values()))["score"] if s.get("scores") else None,
             }
-            for s in history.get("snapshots", [])[-50:]
+            for s in history.get("snapshots", [])[-100:]
         ],
     }
 
@@ -333,7 +389,7 @@ def main():
     SNAPSHOT_JS.write_text(
         f"window.__INITIAL_SNAPSHOT__ = {json_text};\n", encoding="utf-8"
     )
-    print(f"[OK] Updated snapshot {snap_id}: {len(sf_rows)}/77 scored in Semifinal, {len(unsubmitted)} pending.")
+    print(f"[OK] Updated snapshot {snap_id}: {len(sf_rows)}/77 scored, {multi_submit_teams} multi-submit teams, {len(all_events)} progression events.")
 
 
 if __name__ == "__main__":

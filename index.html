@@ -63,7 +63,7 @@
     a { color: var(--primary); text-decoration: none; }
     a:hover { text-decoration: underline; }
     .container {
-      max-width: 1480px;
+      max-width: 1520px;
       margin: 0 auto;
       padding: 16px 20px 48px;
     }
@@ -217,7 +217,7 @@
     }
     .watchlist-cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 10px;
     }
     .watch-card {
@@ -255,14 +255,14 @@
       flex-wrap: wrap;
       gap: 10px;
     }
-    /* Main Layout: Left Content + Right Live Feed */
+    /* Main Layout */
     .main-grid {
       display: grid;
-      grid-template-columns: 1fr 350px;
+      grid-template-columns: 1fr 360px;
       gap: 16px;
       align-items: start;
     }
-    @media (max-width: 1120px) {
+    @media (max-width: 1160px) {
       .main-grid { grid-template-columns: 1fr; }
     }
     .panel {
@@ -389,9 +389,30 @@
       cursor: pointer;
     }
     th:hover { color: var(--text); }
-    tr:hover td { background: var(--bg-hover); }
+    tr.team-row { cursor: pointer; }
+    tr.team-row:hover td { background: var(--bg-hover); }
     tr.pinned-row td { background: var(--bg-pinned); }
     tr.unsubmitted-row td { opacity: 0.82; }
+    tr.detail-row td {
+      background: var(--bg-subtle);
+      padding: 10px 16px;
+      white-space: normal;
+    }
+    .detail-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+    .step-chain {
+      display: inline-flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+    .step-arrow { color: var(--text-faint); }
     .star-btn {
       background: none;
       border: none;
@@ -458,7 +479,7 @@
       color: var(--text-muted);
     }
     .members-cell {
-      max-width: 200px;
+      max-width: 185px;
       white-space: normal;
       font-size: 12px;
       color: var(--text-muted);
@@ -496,9 +517,8 @@
       background: var(--bg-subtle);
     }
     .feed-list {
-      max-height: 740px;
+      max-height: 760px;
       overflow-y: auto;
-      divide-y: 1px solid var(--border);
     }
     .feed-item {
       padding: 10px 14px;
@@ -533,8 +553,10 @@
       align-items: center;
       font-size: 12px;
       color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 4px;
     }
-    /* Sub-panels for Distribution & Timing */
+    /* Sub-panels */
     .subpanel-body {
       padding: 16px;
     }
@@ -572,7 +594,6 @@
     }
     .hidden { display: none !important; }
   </style>
-  <!-- Load local static snapshot first so file:// protocol works without server -->
   <script src="./data/snapshot.js"></script>
 </head>
 <body>
@@ -608,7 +629,7 @@
       </div>
     </header>
 
-    <!-- Summary Metrics -->
+    <!-- Summary Metrics (15% / 40% / 70%) -->
     <section class="metrics-grid">
       <div class="metric-card">
         <div class="metric-label">
@@ -655,7 +676,7 @@
           <span>较复赛涨分 / 评测中位耗时</span>
           <span class="badge badge-up" id="metricImprovedRatio">--</span>
         </div>
-        <div class="metric-value"><span id="metricImprovedCount">--</span> <span style="font-size:14px;color:var(--text-muted);" id="metricJudgeMedian">(--)</span></div>
+        <div class="metric-value"><span id="metricImprovedCount">--</span> <span style="font-size:13px;color:var(--text-muted);" id="metricJudgeMedian">(--)</span></div>
         <div class="metric-foot" id="metricMaxGainFoot">最大提分: --</div>
       </div>
     </section>
@@ -677,23 +698,27 @@
           <button class="tab-btn active" data-tab="board">
             🏆 半决赛实时总榜 <span class="tab-count" id="tabCountAll">77</span>
           </button>
+          <button class="tab-btn" data-tab="progression">
+            📈 队伍历次进步分数 <span class="tab-count" id="tabCountProg">0</span>
+          </button>
           <button class="tab-btn" data-tab="unsubmitted">
             🕵️ 潜伏未交晋级队 <span class="tab-count" id="tabCountUnsub">--</span>
           </button>
           <button class="tab-btn" data-tab="distribution">
-            📊 分数线与分布模拟
+            📊 分数线与分布 (15%/40%/70%)
           </button>
           <button class="tab-btn" data-tab="timing">
             ⏱️ 出分耗时与预测
           </button>
         </div>
 
-        <!-- Tab 1 & 2 Shared Table View -->
+        <!-- Tab 1 & 3 Shared Table View -->
         <div id="viewTableSection">
           <div class="toolbar">
             <div class="filter-pills" id="filterPills">
               <button class="pill active" data-filter="all">全部晋级 (77)</button>
               <button class="pill" data-filter="scored">已出分</button>
+              <button class="pill" data-filter="multi">🔥 多次刷分</button>
               <button class="pill" data-filter="unsubmitted">未出分/潜伏</button>
               <button class="pill" data-filter="p1">省赛一等奖 (29)</button>
               <button class="pill" data-filter="p2">省赛二等奖 (48)</button>
@@ -720,7 +745,8 @@
                   <th>团队成员 (官方名单)</th>
                   <th data-sort="r2_award_seq">复赛奖项 ↕</th>
                   <th data-sort="sf_score">半决赛得分 ↕</th>
-                  <th data-sort="delta_vs_r2">较复赛涨跌 ↕</th>
+                  <th data-sort="last_step_delta" title="点击任意队伍行可展开查看复赛→半决赛每次提交的详细进步分数">半决赛历次进步轨迹 (点行展开) ↕</th>
+                  <th data-sort="delta_vs_r2">较复赛总涨跌 ↕</th>
                   <th data-sort="r2_score">复赛成绩 (排名) ↕</th>
                   <th data-sort="sf_dfsj">最后提交 / 出分时间 ↕</th>
                   <th data-sort="sf_judge_sec">评测耗时 ↕</th>
@@ -731,7 +757,52 @@
           </div>
         </div>
 
-        <!-- Tab 3: Score Distribution & Cutoffs -->
+        <!-- Tab 2: Per-Team Progression & Step-by-Step Score History -->
+        <div id="viewProgressionSection" class="subpanel-body hidden">
+          <h3 style="margin-top:0;">1. 半决赛历次刷分与新提交事件明细（按出分时间倒序）</h3>
+          <p style="color:var(--text-muted);font-size:12.5px;margin-top:-6px;">
+            系统每 10 分钟通过 GitHub Actions 自动巡检归档（结合打开页面时的实时直连检测），自动记录每支队伍在半决赛中的<b>每一次新提交、提交前分数 → 提交后分数、单次进步分数（Δ 本次）及较复赛总进步（Δ 复赛）</b>：
+          </p>
+          <div class="table-wrap" style="margin-bottom:24px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>打分完成时间 (DFSJ_)</th>
+                  <th>队伍名称 / 参赛编号</th>
+                  <th>团队成员</th>
+                  <th>半决赛提交次序</th>
+                  <th>分数变化轨迹 (前次 → 本次)</th>
+                  <th>单次进步分数 (Δ 本次)</th>
+                  <th>较复赛总进步 (Δ 复赛)</th>
+                  <th>半决赛名次变化</th>
+                  <th>评测耗时</th>
+                </tr>
+              </thead>
+              <tbody id="progressionEventsTableBody"></tbody>
+            </table>
+          </div>
+
+          <h3>2. 全队分数阶梯总览（复赛基线 → 半决赛第 1 次 → 第 2 次 → ...）</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>当前名次</th>
+                  <th>队伍名称 / 参赛编号</th>
+                  <th>复赛奖项</th>
+                  <th>复赛终榜基线</th>
+                  <th>半决赛历次得分与每次进步分数</th>
+                  <th>当前半决赛得分</th>
+                  <th>较半决赛首交进步</th>
+                  <th>较复赛总进步</th>
+                </tr>
+              </thead>
+              <tbody id="progressionLadderTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 4: Score Distribution & Cutoffs (15% / 40% / 70%) -->
         <div id="viewDistributionSection" class="subpanel-body hidden">
           <h3 style="margin-top:0;">1. 分档分数线对比（15% / 40% / 70% 三档）</h3>
           <p style="color:var(--text-muted);font-size:12.5px;margin-top:-6px;">
@@ -757,7 +828,7 @@
           <div id="distHistogramWrap"></div>
         </div>
 
-        <!-- Tab 4: Judging Duration & Prediction -->
+        <!-- Tab 5: Judging Duration & Prediction -->
         <div id="viewTimingSection" class="subpanel-body hidden">
           <div class="predict-box">
             <div>
@@ -805,9 +876,9 @@
         </div>
         <div class="feed-filters" id="feedFilterBar">
           <button class="pill active" data-feed-hours="0">全部出分</button>
+          <button class="pill" data-feed-hours="multi">🔥 二次刷分</button>
           <button class="pill" data-feed-hours="3">近 3h</button>
           <button class="pill" data-feed-hours="12">近 12h</button>
-          <button class="pill" data-feed-hours="24">近 24h</button>
           <button class="pill" data-feed-hours="starred">⭐ 关注</button>
         </div>
         <div class="feed-list" id="feedList"></div>
@@ -823,14 +894,12 @@
 
       const STORAGE_KEYS = {
         STARRED: "video_ora_sf_starred_csbh_v1",
-        THEME: "video_ora_sf_theme_v1",
-        LIVE_CACHE: "video_ora_sf_last_live_scores_v1",
-        LIVE_EVENTS: "video_ora_sf_live_events_v1"
+        THEME: "video_ora_sf_theme_v1"
       };
 
       let appState = {
         snapshot: window.__INITIAL_SNAPSHOT__ || null,
-        mode: "static", // "live" | "static"
+        mode: "static",
         lastFetchedAt: null,
         activeTab: "board",
         activeFilter: "all",
@@ -839,6 +908,7 @@
         sortAsc: true,
         feedFilter: "0",
         starred: new Set(JSON.parse(localStorage.getItem(STORAGE_KEYS.STARRED) || "[]")),
+        expandedTeams: new Set(),
         autoRefreshTimer: null
       };
 
@@ -889,6 +959,11 @@
         return diffDay + " 天前 (" + dateStr.slice(5, 16) + ")";
       }
 
+      function formatSigned(val) {
+        if (val === null || val === undefined || isNaN(val)) return "—";
+        return val > 0 ? `+${val.toFixed(2)}` : val.toFixed(2);
+      }
+
       async function fetchStageDirect(jd) {
         const resp = await fetch(API_URL, {
           method: "POST",
@@ -906,76 +981,29 @@
         return await resp.json();
       }
 
-      // Live browser fetch that merges into the 77-team base roster
+      // Live browser fetch that merges into the 77-team base roster & preserves sf_timeline
       async function refreshLiveFromOfficialApi() {
         const btn = document.getElementById("refreshNowBtn");
         btn.disabled = true;
         btn.textContent = "⏳ 正在拉取官方接口...";
         try {
-          // Ensure we have base snapshot (from window.__INITIAL_SNAPSHOT__ or ./data/snapshot.json)
-          if (!appState.snapshot) {
+          // Always pull latest static snapshot.json from server/GitHub Pages first so we get latest archived history_events & timelines
+          try {
             const r = await fetch("./data/snapshot.json?t=" + Date.now());
-            appState.snapshot = await r.json();
-          }
+            if (r.ok) {
+              appState.snapshot = await r.json();
+            }
+          } catch (e0) {}
+
           const [sfData, r2Data] = await Promise.all([
             fetchStageDirect("半决赛"),
             fetchStageDirect("复赛")
           ]);
           const sfRows = sfData.data || [];
           const r2Rows = r2Data.data || [];
-          const sfByCsbh = {};
-          sfRows.forEach(r => { sfByCsbh[r.CSBH_] = r; });
           const r2ByCsbh = {};
           r2Rows.forEach(r => { r2ByCsbh[r.CSBH_] = r; });
 
-          // Check against browser cached scores for live diff events
-          const prevCache = JSON.parse(localStorage.getItem(STORAGE_KEYS.LIVE_CACHE) || "{}");
-          const liveEvents = JSON.parse(localStorage.getItem(STORAGE_KEYS.LIVE_EVENTS) || "[]");
-          const newCache = {};
-          const nowIso = new Date().toISOString();
-
-          sfRows.forEach(r => {
-            const csbh = r.CSBH_;
-            newCache[csbh] = { score: r.FS_, rank: Number(r.XH_), tjsj: r.ZPZHTJSJ_, dfsj: r.DFSJ_, tdmc: r.TDMC_ };
-            const prev = prevCache[csbh];
-            if (Object.keys(prevCache).length > 0) {
-              if (!prev) {
-                liveEvents.push({
-                  type: "new_submission",
-                  detected_at: nowIso,
-                  csbh,
-                  tdmc: r.TDMC_,
-                  new_score: r.FS_,
-                  prev_score: null,
-                  delta: null,
-                  new_rank: Number(r.XH_),
-                  tjsj: r.ZPZHTJSJ_,
-                  dfsj: r.DFSJ_,
-                  judge_sec: parseDiffSec(r.ZPZHTJSJ_, r.DFSJ_)
-                });
-              } else if (prev.score !== r.FS_ || prev.tjsj !== r.ZPZHTJSJ_) {
-                const d = (parseFloat(r.FS_) - parseFloat(prev.score));
-                liveEvents.push({
-                  type: "score_update",
-                  detected_at: nowIso,
-                  csbh,
-                  tdmc: r.TDMC_,
-                  new_score: r.FS_,
-                  prev_score: prev.score,
-                  delta: isNaN(d) ? null : Number(d.toFixed(4)),
-                  new_rank: Number(r.XH_),
-                  prev_rank: prev.rank,
-                  tjsj: r.ZPZHTJSJ_,
-                  dfsj: r.DFSJ_,
-                  judge_sec: parseDiffSec(r.ZPZHTJSJ_, r.DFSJ_)
-                });
-              }
-            }
-          });
-          localStorage.setItem(STORAGE_KEYS.LIVE_CACHE, JSON.stringify(newCache));
-          localStorage.setItem(STORAGE_KEYS.LIVE_EVENTS, JSON.stringify(liveEvents.slice(-200)));
-
-          // Build roster map from existing 77-team metadata
           const metaByCsbh = {};
           (appState.snapshot.teams || []).forEach(t => {
             metaByCsbh[t.csbh] = t;
@@ -983,6 +1011,8 @@
 
           const updatedTeams = [];
           const seen = new Set();
+          const nowIso = new Date().toISOString();
+          const eventsList = [...(appState.snapshot.history_events || [])];
 
           sfRows.forEach(sf => {
             const csbh = sf.CSBH_;
@@ -992,6 +1022,80 @@
             const sfScore = sf.FS_ ? parseFloat(sf.FS_) : null;
             const r2Score = r2.FS_ ? parseFloat(r2.FS_) : (meta.r2_score ?? null);
             const deltaVsR2 = (sfScore !== null && r2Score !== null) ? Number((sfScore - r2Score).toFixed(4)) : null;
+            const tjsj = sf.ZPZHTJSJ_ || "";
+            const dfsj = sf.DFSJ_ || "";
+            const judgeSec = parseDiffSec(tjsj, dfsj);
+
+            // Preserve & extend sf_timeline if live API has a newer submission than snapshot
+            const tl = Array.isArray(meta.sf_timeline) ? [...meta.sf_timeline] : [];
+            if (tl.length === 0 && sfScore !== null) {
+              tl.push({
+                step: 1,
+                type: "new_submission",
+                score: sfScore,
+                score_str: sf.FS_,
+                prev_score: null,
+                prev_score_str: null,
+                delta_step: null,
+                r2_score: r2Score,
+                r2_score_str: r2.FS_ || meta.r2_score_str || "",
+                delta_vs_r2: deltaVsR2,
+                rank: Number(sf.XH_),
+                prev_rank: null,
+                tjsj,
+                dfsj,
+                judge_sec: judgeSec,
+                detected_at: nowIso
+              });
+            } else if (tl.length > 0 && sfScore !== null) {
+              const lastStep = tl[tl.length - 1];
+              if (sf.FS_ !== lastStep.score_str || tjsj !== lastStep.tjsj) {
+                const dStep = Number((sfScore - lastStep.score).toFixed(4));
+                const evType = sf.FS_ !== lastStep.score_str ? "score_update" : "resubmit_same_score";
+                const newStep = {
+                  step: tl.length + 1,
+                  type: evType,
+                  score: sfScore,
+                  score_str: sf.FS_,
+                  prev_score: lastStep.score,
+                  prev_score_str: lastStep.score_str,
+                  delta_step: dStep,
+                  r2_score: r2Score,
+                  r2_score_str: r2.FS_ || meta.r2_score_str || "",
+                  delta_vs_r2: deltaVsR2,
+                  rank: Number(sf.XH_),
+                  prev_rank: lastStep.rank,
+                  tjsj,
+                  dfsj,
+                  judge_sec: judgeSec,
+                  detected_at: nowIso
+                };
+                tl.push(newStep);
+                eventsList.unshift({
+                  type: evType,
+                  step: newStep.step,
+                  detected_at: nowIso,
+                  csbh,
+                  tdmc: sf.TDMC_ || meta.tdmc,
+                  new_score: sf.FS_,
+                  prev_score: lastStep.score_str,
+                  delta: dStep,
+                  r2_score: r2.FS_ || meta.r2_score_str || "",
+                  delta_vs_r2: deltaVsR2,
+                  new_rank: Number(sf.XH_),
+                  prev_rank: lastStep.rank,
+                  tjsj,
+                  dfsj,
+                  judge_sec: judgeSec
+                });
+              }
+            }
+
+            const lastStepDelta = tl.length >= 2 ? tl[tl.length - 1].delta_step : null;
+            const firstSfScore = tl.length > 0 ? tl[0].score : sfScore;
+            const deltaVsFirstSf = (tl.length >= 2 && sfScore !== null && firstSfScore !== null)
+              ? Number((sfScore - firstSfScore).toFixed(4))
+              : null;
 
             updatedTeams.push({
               csbh,
@@ -1003,14 +1107,18 @@
               sf_rank: Number(sf.XH_),
               sf_score: sfScore,
               sf_score_str: sf.FS_ || "",
-              sf_tjsj: sf.ZPZHTJSJ_ || "",
-              sf_dfsj: sf.DFSJ_ || "",
-              sf_judge_sec: parseDiffSec(sf.ZPZHTJSJ_, sf.DFSJ_),
+              sf_tjsj: tjsj,
+              sf_dfsj: dfsj,
+              sf_judge_sec: judgeSec,
               r2_rank: r2.XH_ ? Number(r2.XH_) : (meta.r2_rank ?? null),
               r2_score: r2Score,
               r2_score_str: r2.FS_ || meta.r2_score_str || "",
               r2_tjsj: r2.ZPZHTJSJ_ || meta.r2_tjsj || "",
-              delta_vs_r2: deltaVsR2
+              delta_vs_r2: deltaVsR2,
+              sf_submit_count: tl.length,
+              last_step_delta: lastStepDelta,
+              delta_vs_first_sf: deltaVsFirstSf,
+              sf_timeline: tl
             });
           });
 
@@ -1032,12 +1140,17 @@
               r2_rank: r2.XH_ ? Number(r2.XH_) : meta.r2_rank,
               r2_score: r2Score,
               r2_score_str: r2.FS_ || meta.r2_score_str || "",
-              delta_vs_r2: null
+              delta_vs_r2: null,
+              sf_submit_count: 0,
+              last_step_delta: null,
+              delta_vs_first_sf: null,
+              sf_timeline: []
             });
           });
           unsubmitted.sort((a, b) => (a.r2_rank || 9999) - (b.r2_rank || 9999));
 
           appState.snapshot.teams = updatedTeams.concat(unsubmitted);
+          appState.snapshot.history_events = eventsList;
           appState.snapshot.platform_create_time = sfRows[0]?.createTime || appState.snapshot.platform_create_time;
           appState.snapshot.summary.sf_scored_count = sfRows.length;
           appState.snapshot.summary.sf_unsubmitted_count = unsubmitted.length;
@@ -1070,6 +1183,8 @@
         const teams = snap.teams || [];
         const scoredTeams = teams.filter(t => t.has_sf_score).sort((a, b) => a.sf_rank - b.sf_rank);
         const unsubTeams = teams.filter(t => !t.has_sf_score);
+        const multiTeams = scoredTeams.filter(t => (t.sf_submit_count || 0) >= 2);
+        const events = snap.history_events || [];
 
         // Status pill & subtitle
         const pill = document.getElementById("connStatusPill");
@@ -1083,7 +1198,7 @@
           pillText.textContent = "静态快照 (" + (snap.snapshot_id || "") + ")";
         }
         document.getElementById("subtitleText").innerHTML =
-          `平台榜单生成时间：<b class="mono">${snap.platform_create_time || "—"}</b> · 晋级名单来源：官方复赛获奖名单 (省一 29 队 + 省二 48 队 = 77 队) · <a href="${snap.source_url}" target="_blank" rel="noopener">官方榜单页 ↗</a>`;
+          `平台榜单生成时间：<b class="mono">${snap.platform_create_time || "—"}</b> · 晋级名单：官方复赛获奖名单 (省一 29 队 + 省二 48 队 = 77 队) · 已捕获 <b class="mono">${multiTeams.length}</b> 支队伍二次刷分 · <a href="${snap.source_url}" target="_blank" rel="noopener">官方榜单页 ↗</a>`;
 
         // Metrics
         const pct = ((scoredTeams.length / 77) * 100).toFixed(1) + "%";
@@ -1091,6 +1206,7 @@
         document.getElementById("metricScoredCount").textContent = `${scoredTeams.length} / 77`;
         document.getElementById("metricUnsubmittedFoot").textContent = `还有 ${unsubTeams.length} 支晋级队伍尚未出分`;
         document.getElementById("tabCountAll").textContent = teams.length;
+        document.getElementById("tabCountProg").textContent = events.length;
         document.getElementById("tabCountUnsub").textContent = unsubTeams.length;
 
         if (scoredTeams.length > 0) {
@@ -1146,6 +1262,7 @@
 
         renderWatchlist(teams, scoredTeams);
         renderMainTable(teams, scoredTeams);
+        renderProgression(teams, scoredTeams, events);
         renderDistribution(scoredTeams);
         renderTiming(scoredTeams, secs);
         renderFeed(scoredTeams);
@@ -1166,9 +1283,12 @@
         const line53Score = scoredTeams[52]?.sf_score ?? null;
 
         container.innerHTML = starredTeams.map(t => {
-          const deltaStr = t.delta_vs_r2 !== null
-            ? (t.delta_vs_r2 > 0 ? `+${t.delta_vs_r2.toFixed(2)}` : t.delta_vs_r2.toFixed(2))
-            : "—";
+          const deltaStr = formatSigned(t.delta_vs_r2);
+          const tl = t.sf_timeline || [];
+          const stepChainStr = tl.length >= 2
+            ? tl.map(s => s.score.toFixed(2)).join(" → ") + ` (最近 ${formatSigned(t.last_step_delta)})`
+            : (t.has_sf_score ? `首交 ${t.sf_score.toFixed(2)}` : "未出分");
+
           let gapHtml = "";
           if (t.has_sf_score && top1Score !== null) {
             const gap1 = (t.sf_score - top1Score).toFixed(2);
@@ -1198,12 +1318,96 @@
                 <span>复赛: <b class="mono">${t.r2_score_str || "—"}</b> (#${t.r2_rank || "—"})</span>
                 <span>较复赛: <b class="mono">${deltaStr}</b></span>
               </div>
+              <div class="watch-card-meta">
+                <span>半决赛轨迹: <b class="mono">${stepChainStr}</b></span>
+              </div>
               <div class="watch-card-meta" style="border-top:1px dashed var(--border);padding-top:4px;">
                 ${gapHtml}
               </div>
             </div>
           `;
         }).join("");
+      }
+
+      function renderStepChainCell(t) {
+        if (!t.has_sf_score) return `<span style="color:var(--text-faint);">—</span>`;
+        const tl = t.sf_timeline || [];
+        if (tl.length >= 2) {
+          const scoresChain = tl.map(s => s.score.toFixed(2)).join(` <span class="step-arrow">→</span> `);
+          const lastD = t.last_step_delta;
+          const dBadge = lastD > 0
+            ? `<span class="badge badge-up">本次 +${lastD.toFixed(2)}</span>`
+            : lastD < 0
+            ? `<span class="badge badge-down">本次 ${lastD.toFixed(2)}</span>`
+            : `<span class="badge badge-same">重交 0.00</span>`;
+          return `<div class="step-chain"><span>${scoresChain}</span> ${dBadge} <span class="badge badge-p1">${tl.length}次▾</span></div>`;
+        }
+        return `<div class="step-chain"><span style="color:var(--text-muted);">复赛 ${t.r2_score_str || "—"} <span class="step-arrow">→</span> ${t.sf_score.toFixed(2)}</span> <span class="badge badge-same">1次▾</span></div>`;
+      }
+
+      function renderExpandedDetailRow(t) {
+        const tl = t.sf_timeline || [];
+        const stepsRows = [];
+        stepsRows.push(`
+          <tr>
+            <td><span class="badge badge-same">复赛终榜基线</span></td>
+            <td class="mono"><b>${t.r2_score_str || "—"}</b></td>
+            <td class="mono">—</td>
+            <td class="mono">—</td>
+            <td class="mono">复赛 #${t.r2_rank || "—"} (${t.r2_award} #${t.r2_award_seq || "—"})</td>
+            <td class="mono">${t.r2_tjsj || "—"}</td>
+            <td class="mono">—</td>
+          </tr>
+        `);
+        tl.forEach((s, idx) => {
+          const stepDeltaHtml = idx === 0
+            ? `<span class="badge ${s.delta_vs_r2 > 0 ? "badge-up" : s.delta_vs_r2 < 0 ? "badge-down" : "badge-same"}">首交较复赛 ${formatSigned(s.delta_vs_r2)}</span>`
+            : `<span class="badge ${s.delta_step > 0 ? "badge-up" : s.delta_step < 0 ? "badge-down" : "badge-same"}">较第${idx}次 ${formatSigned(s.delta_step)} (${s.prev_score_str} → ${s.score_str})</span>`;
+          const cumDeltaHtml = s.delta_vs_r2 !== null
+            ? `<span class="mono">${formatSigned(s.delta_vs_r2)}</span>`
+            : "—";
+          const rankHtml = s.prev_rank
+            ? `半决赛 #${s.prev_rank} → <b>#${s.rank}</b>`
+            : `半决赛 <b>#${s.rank}</b>`;
+          stepsRows.push(`
+            <tr>
+              <td><span class="badge badge-p2">半决赛 第 ${s.step} 次</span></td>
+              <td class="mono"><b>${s.score.toFixed(2)}</b></td>
+              <td>${stepDeltaHtml}</td>
+              <td>${cumDeltaHtml}</td>
+              <td class="mono">${rankHtml}</td>
+              <td class="mono">${s.dfsj || s.tjsj || "—"}</td>
+              <td class="mono">${formatSec(s.judge_sec)}</td>
+            </tr>
+          `);
+        });
+
+        return `
+          <tr class="detail-row">
+            <td colspan="11">
+              <div class="detail-box">
+                <div style="font-weight:700;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;">
+                  <span>📈 ${t.tdmc} (${t.csbh}) · 复赛→半决赛历次提交与每次进步分数明细</span>
+                  <span style="font-size:12px;color:var(--text-muted);">团队成员：${(t.members || []).join("、") || "—"}</span>
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>提交阶段 / 次序</th>
+                      <th>当时得分</th>
+                      <th>单次进步分数 (Δ 本次)</th>
+                      <th>累计较复赛涨跌 (Δ 复赛)</th>
+                      <th>当时榜单排名</th>
+                      <th>打分完成时间 (DFSJ_)</th>
+                      <th>评测耗时</th>
+                    </tr>
+                  </thead>
+                  <tbody>${stepsRows.join("")}</tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        `;
       }
 
       function renderMainTable(teams, scoredTeams) {
@@ -1213,6 +1417,7 @@
         let filtered = teams.filter(t => {
           if (appState.activeTab === "unsubmitted" && t.has_sf_score) return false;
           if (appState.activeFilter === "scored" && !t.has_sf_score) return false;
+          if (appState.activeFilter === "multi" && !((t.sf_submit_count || 0) >= 2)) return false;
           if (appState.activeFilter === "unsubmitted" && t.has_sf_score) return false;
           if (appState.activeFilter === "p1" && t.r2_award !== "省赛一等奖") return false;
           if (appState.activeFilter === "p2" && t.r2_award !== "省赛二等奖") return false;
@@ -1253,6 +1458,7 @@
         const rowsHtml = [];
         filtered.forEach(t => {
           const isStarred = appState.starred.has(t.csbh);
+          const isExpanded = appState.expandedTeams.has(t.csbh);
           const rankClass = t.sf_rank === 1 ? "rank-1" : t.sf_rank === 2 ? "rank-2" : t.sf_rank === 3 ? "rank-3" : "";
           const rankHtml = t.has_sf_score
             ? `<span class="rank-badge ${rankClass}">${t.sf_rank}</span>`
@@ -1274,7 +1480,7 @@
             : `<span class="badge badge-p2">省二 #${t.r2_award_seq}</span>`;
 
           rowsHtml.push(`
-            <tr class="${isStarred ? "pinned-row" : ""} ${!t.has_sf_score ? "unsubmitted-row" : ""}">
+            <tr class="team-row ${isStarred ? "pinned-row" : ""} ${!t.has_sf_score ? "unsubmitted-row" : ""}" data-row-csbh="${t.csbh}">
               <td>
                 <button class="star-btn ${isStarred ? "starred" : ""}" data-csbh="${t.csbh}" title="点击关注/取消关注">
                   ${isStarred ? "★" : "☆"}
@@ -1290,6 +1496,7 @@
               <td class="members-cell">${(t.members || []).join("、") || "—"}</td>
               <td>${awardBadge}</td>
               <td class="score-main">${t.has_sf_score ? t.sf_score.toFixed(2) : "—"}</td>
+              <td>${renderStepChainCell(t)}</td>
               <td>${deltaHtml}</td>
               <td class="mono">${t.r2_score_str || "—"} <span style="color:var(--text-muted);font-size:11.5px;">(#${t.r2_rank || "—"})</span></td>
               <td class="mono" style="font-size:12px;">
@@ -1299,18 +1506,22 @@
             </tr>
           `);
 
+          if (isExpanded) {
+            rowsHtml.push(renderExpandedDetailRow(t));
+          }
+
           if (showCutoffDividers && t.sf_rank === 11) {
-            rowsHtml.push(`<tr class="cutoff-divider"><td colspan="10">▲ 以上为 77 支晋级队前 15% 边界（第 11 名，${t.sf_score.toFixed(2)} 分） ▲</td></tr>`);
+            rowsHtml.push(`<tr class="cutoff-divider"><td colspan="11">▲ 以上为 77 支晋级队前 15% 边界（第 11 名，${t.sf_score.toFixed(2)} 分） ▲</td></tr>`);
           }
           if (showCutoffDividers && t.sf_rank === 30) {
-            rowsHtml.push(`<tr class="cutoff-divider"><td colspan="10">▲ 以上为 77 支晋级队前 40% 边界（第 30 名，${t.sf_score.toFixed(2)} 分） ▲</td></tr>`);
+            rowsHtml.push(`<tr class="cutoff-divider"><td colspan="11">▲ 以上为 77 支晋级队前 40% 边界（第 30 名，${t.sf_score.toFixed(2)} 分） ▲</td></tr>`);
           }
           if (showCutoffDividers && t.sf_rank === 53) {
-            rowsHtml.push(`<tr class="cutoff-divider"><td colspan="10">▲ 以上为 77 支晋级队前 70% 边界（第 53 名，${t.sf_score.toFixed(2)} 分） ▲</td></tr>`);
+            rowsHtml.push(`<tr class="cutoff-divider"><td colspan="11">▲ 以上为 77 支晋级队前 70% 边界（第 53 名，${t.sf_score.toFixed(2)} 分） ▲</td></tr>`);
           }
         });
 
-        tbody.innerHTML = rowsHtml.join("") || `<tr><td colspan="10" style="text-align:center;padding:28px;color:var(--text-muted);">没有匹配的晋级队伍记录</td></tr>`;
+        tbody.innerHTML = rowsHtml.join("") || `<tr><td colspan="11" style="text-align:center;padding:28px;color:var(--text-muted);">没有匹配的晋级队伍记录</td></tr>`;
 
         // Bind star buttons
         tbody.querySelectorAll(".star-btn").forEach(btn => {
@@ -1326,6 +1537,115 @@
             renderAll();
           });
         });
+
+        // Bind row click to toggle expanded detail row
+        tbody.querySelectorAll("tr.team-row").forEach(tr => {
+          tr.addEventListener("click", () => {
+            const csbh = tr.getAttribute("data-row-csbh");
+            if (appState.expandedTeams.has(csbh)) {
+              appState.expandedTeams.delete(csbh);
+            } else {
+              appState.expandedTeams.add(csbh);
+            }
+            renderMainTable(teams, scoredTeams);
+          });
+        });
+      }
+
+      function renderProgression(teams, scoredTeams, events) {
+        const teamMap = {};
+        teams.forEach(t => { teamMap[t.csbh] = t; });
+
+        // 1. Events table
+        const evTbody = document.getElementById("progressionEventsTableBody");
+        evTbody.innerHTML = events.map(ev => {
+          const t = teamMap[ev.csbh] || {};
+          const stepNum = ev.step || (ev.type === "new_submission" ? 1 : 2);
+          const stepBadge = ev.type === "new_submission"
+            ? `<span class="badge badge-p2">半决赛首交 (第1次)</span>`
+            : `<span class="badge badge-p1">半决赛刷分 (第${stepNum}次)</span>`;
+
+          const scoreTransition = ev.prev_score
+            ? `<span class="mono">${ev.prev_score} → <b>${ev.new_score}</b></span>`
+            : `<span class="mono">复赛 ${ev.r2_score || t.r2_score_str || "—"} → <b>${ev.new_score}</b></span>`;
+
+          let deltaStepHtml = "—";
+          if (ev.delta !== null && ev.delta !== undefined) {
+            deltaStepHtml = ev.delta > 0
+              ? `<span class="badge badge-up">本次 +${Number(ev.delta).toFixed(2)}</span>`
+              : ev.delta < 0
+              ? `<span class="badge badge-down">本次 ${Number(ev.delta).toFixed(2)}</span>`
+              : `<span class="badge badge-same">重交 0.00</span>`;
+          } else if (ev.delta_vs_r2 !== null && ev.delta_vs_r2 !== undefined) {
+            deltaStepHtml = `<span class="badge ${ev.delta_vs_r2 >= 0 ? "badge-up" : "badge-down"}">首交较复赛 ${formatSigned(ev.delta_vs_r2)}</span>`;
+          }
+
+          const deltaR2Val = ev.delta_vs_r2 !== undefined && ev.delta_vs_r2 !== null ? ev.delta_vs_r2 : t.delta_vs_r2;
+          const deltaR2Html = deltaR2Val !== null && deltaR2Val !== undefined
+            ? `<span class="mono ${deltaR2Val > 0 ? "badge badge-up" : deltaR2Val < 0 ? "badge badge-down" : "badge badge-same"}">${formatSigned(Number(deltaR2Val))}</span>`
+            : "—";
+
+          const rankChangeHtml = ev.prev_rank
+            ? `#${ev.prev_rank} → <b>#${ev.new_rank}</b>`
+            : `新上榜 <b>#${ev.new_rank}</b>`;
+
+          return `
+            <tr>
+              <td class="mono">${ev.dfsj || ev.tjsj || "—"} <span style="color:var(--text-muted);font-size:11px;">(${formatRelativeTime(ev.dfsj || ev.tjsj)})</span></td>
+              <td><b>${ev.tdmc || t.tdmc}</b> <span class="mono" style="color:var(--text-muted);font-size:11px;">(${ev.csbh})</span></td>
+              <td class="members-cell">${(t.members || []).join("、") || "—"}</td>
+              <td>${stepBadge}</td>
+              <td>${scoreTransition}</td>
+              <td>${deltaStepHtml}</td>
+              <td>${deltaR2Html}</td>
+              <td class="mono">${rankChangeHtml}</td>
+              <td class="mono">${formatSec(ev.judge_sec)}</td>
+            </tr>
+          `;
+        }).join("") || `<tr><td colspan="9" style="text-align:center;padding:24px;color:var(--text-muted);">暂无增量刷分记录</td></tr>`;
+
+        // 2. Full ladder table (prioritize multi-submit teams at top, then by rank)
+        const ladderTeams = [...scoredTeams].sort((a, b) => {
+          const ma = (a.sf_submit_count || 1) >= 2 ? 0 : 1;
+          const mb = (b.sf_submit_count || 1) >= 2 ? 0 : 1;
+          if (ma !== mb) return ma - mb;
+          return a.sf_rank - b.sf_rank;
+        });
+
+        const ladderTbody = document.getElementById("progressionLadderTableBody");
+        ladderTbody.innerHTML = ladderTeams.map(t => {
+          const tl = t.sf_timeline || [];
+          const stepsHtml = tl.map((s, idx) => {
+            if (idx === 0) {
+              const d0 = s.delta_vs_r2 !== null ? `(${formatSigned(s.delta_vs_r2)})` : "";
+              return `<span class="mono">第1次: <b>${s.score.toFixed(2)}</b> <span style="color:var(--text-muted)">${d0}</span></span>`;
+            }
+            const dStep = s.delta_step !== null ? formatSigned(s.delta_step) : "0.00";
+            const cls = s.delta_step > 0 ? "badge-up" : s.delta_step < 0 ? "badge-down" : "badge-same";
+            return `<span class="mono">第${s.step}次: <b>${s.score.toFixed(2)}</b> <span class="badge ${cls}">本次 ${dStep}</span></span>`;
+          }).join(` <span class="step-arrow">→</span> `);
+
+          const vsFirstHtml = t.delta_vs_first_sf !== null && t.delta_vs_first_sf !== undefined
+            ? `<span class="badge ${t.delta_vs_first_sf > 0 ? "badge-up" : "badge-same"}">${formatSigned(t.delta_vs_first_sf)}</span>`
+            : `<span style="color:var(--text-faint);">— (仅1次)</span>`;
+
+          const vsR2Html = t.delta_vs_r2 !== null
+            ? `<span class="badge ${t.delta_vs_r2 > 0 ? "badge-up" : t.delta_vs_r2 < 0 ? "badge-down" : "badge-same"}">${formatSigned(t.delta_vs_r2)}</span>`
+            : "—";
+
+          return `
+            <tr>
+              <td><span class="rank-badge">#${t.sf_rank}</span></td>
+              <td><b>${t.tdmc}</b> <span class="mono" style="color:var(--text-muted);font-size:11px;">(${t.csbh})</span></td>
+              <td><span class="badge ${t.r2_award === "省赛一等奖" ? "badge-p1" : "badge-p2"}">${t.r2_award === "省赛一等奖" ? "省一" : "省二"} #${t.r2_award_seq}</span></td>
+              <td class="mono">${t.r2_score_str || "—"} (#${t.r2_rank || "—"})</td>
+              <td><div class="step-chain">${stepsHtml}</div></td>
+              <td class="score-main">${t.sf_score.toFixed(2)}</td>
+              <td>${vsFirstHtml}</td>
+              <td>${vsR2Html}</td>
+            </tr>
+          `;
+        }).join("");
       }
 
       function renderDistribution(scoredTeams) {
@@ -1403,7 +1723,6 @@
           </tr>
         `).join("");
 
-        // Update predictor
         const updatePredict = () => {
           const val = document.getElementById("predictInputTime").value;
           if (!val || secs.length === 0) return;
@@ -1444,6 +1763,8 @@
 
         if (filterVal === "starred") {
           items = items.filter(t => appState.starred.has(t.csbh));
+        } else if (filterVal === "multi") {
+          items = items.filter(t => (t.sf_submit_count || 0) >= 2);
         } else {
           const hrs = Number(filterVal);
           if (hrs > 0) {
@@ -1456,9 +1777,13 @@
 
         document.getElementById("feedCountBadge").textContent = items.length;
         listEl.innerHTML = items.map(t => {
-          let dBadge = "";
-          if (t.delta_vs_r2 !== null) {
-            dBadge = t.delta_vs_r2 > 0
+          const tl = t.sf_timeline || [];
+          let stepInfo = "";
+          if (tl.length >= 2) {
+            const lastS = tl[tl.length - 1];
+            stepInfo = `<span class="badge badge-up">${lastS.prev_score_str} → ${lastS.score_str} (本次 ${formatSigned(lastS.delta_step)})</span>`;
+          } else if (t.delta_vs_r2 !== null) {
+            stepInfo = t.delta_vs_r2 > 0
               ? `<span class="badge badge-up">较复赛 +${t.delta_vs_r2.toFixed(2)}</span>`
               : t.delta_vs_r2 < 0
               ? `<span class="badge badge-down">较复赛 ${t.delta_vs_r2.toFixed(2)}</span>`
@@ -1471,12 +1796,12 @@
                 <span class="feed-time">${formatRelativeTime(t.sf_dfsj)}</span>
               </div>
               <div class="feed-item-bottom">
-                <span>得分: <b class="mono" style="color:var(--primary);font-size:13.5px;">${t.sf_score.toFixed(2)}</b> ${dBadge}</span>
+                <span><b class="mono" style="color:var(--primary);font-size:13.5px;">${t.sf_score.toFixed(2)}</b> ${stepInfo}</span>
                 <span class="mono">耗时 ${formatSec(t.sf_judge_sec)}</span>
               </div>
             </div>
           `;
-        }).join("") || `<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:12.5px;">该时间段内暂无出分记录</div>`;
+        }).join("") || `<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:12.5px;">该筛选条件下暂无记录</div>`;
       }
 
       // Event Listeners
@@ -1487,6 +1812,7 @@
           appState.activeTab = btn.getAttribute("data-tab");
 
           document.getElementById("viewTableSection").classList.toggle("hidden", appState.activeTab !== "board" && appState.activeTab !== "unsubmitted");
+          document.getElementById("viewProgressionSection").classList.toggle("hidden", appState.activeTab !== "progression");
           document.getElementById("viewDistributionSection").classList.toggle("hidden", appState.activeTab !== "distribution");
           document.getElementById("viewTimingSection").classList.toggle("hidden", appState.activeTab !== "timing");
           renderAll();
@@ -1551,22 +1877,27 @@
       // Export CSV
       document.getElementById("exportCsvBtn").addEventListener("click", () => {
         if (!appState.snapshot) return;
-        const headers = ["半决赛名次", "参赛编号", "队伍名称", "团队成员", "复赛获奖等级", "复赛名单序号", "半决赛得分", "较复赛涨跌", "复赛得分", "复赛排名", "半决赛最后提交时间", "半决赛打分时间", "评测耗时(秒)"];
-        const rows = appState.snapshot.teams.map(t => [
-          t.has_sf_score ? t.sf_rank : "未出分",
-          t.csbh,
-          `"${(t.tdmc || "").replace(/"/g, '""')}"`,
-          `"${(t.members || []).join("、")}"`,
-          t.r2_award,
-          t.r2_award_seq || "",
-          t.sf_score_str || "",
-          t.delta_vs_r2 !== null ? t.delta_vs_r2.toFixed(2) : "",
-          t.r2_score_str || "",
-          t.r2_rank || "",
-          t.sf_tjsj || "",
-          t.sf_dfsj || "",
-          t.sf_judge_sec !== null ? t.sf_judge_sec : ""
-        ]);
+        const headers = ["半决赛名次", "参赛编号", "队伍名称", "团队成员", "复赛获奖等级", "复赛名单序号", "半决赛得分", "半决赛历次轨迹", "最近一次进步分数", "较复赛总涨跌", "复赛得分", "复赛排名", "半决赛最后提交时间", "半决赛打分时间", "评测耗时(秒)"];
+        const rows = appState.snapshot.teams.map(t => {
+          const chain = (t.sf_timeline || []).map(s => s.score.toFixed(2)).join(" -> ");
+          return [
+            t.has_sf_score ? t.sf_rank : "未出分",
+            t.csbh,
+            `"${(t.tdmc || "").replace(/"/g, '""')}"`,
+            `"${(t.members || []).join("、")}"`,
+            t.r2_award,
+            t.r2_award_seq || "",
+            t.sf_score_str || "",
+            `"${chain}"`,
+            t.last_step_delta !== null && t.last_step_delta !== undefined ? t.last_step_delta.toFixed(2) : "",
+            t.delta_vs_r2 !== null ? t.delta_vs_r2.toFixed(2) : "",
+            t.r2_score_str || "",
+            t.r2_rank || "",
+            t.sf_tjsj || "",
+            t.sf_dfsj || "",
+            t.sf_judge_sec !== null ? t.sf_judge_sec : ""
+          ];
+        });
         const csvContent = "\uFEFF" + [headers.join(","), ...rows.map(r => r.join(","))].join("\r\n");
         const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
         const url = URL.createObjectURL(blob);
@@ -1577,7 +1908,6 @@
         URL.revokeObjectURL(url);
       });
 
-      // Initial render + immediate live API refresh
       if (appState.snapshot) {
         renderAll();
       }
