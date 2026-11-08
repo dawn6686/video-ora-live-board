@@ -1,0 +1,1525 @@
+{
+  "title": "第八届全球校园人工智能算法精英大赛 产业命题赛道（基于视频大模型的通用视频高光剪辑）复赛获奖名单",
+  "source": "用户于 2026-11-08 提供的官方复赛获奖及晋级名单 PDF（共 13 页，135 支获奖队伍）",
+  "summary": {
+    "total_awarded": 135,
+    "provincial_first_prize": 29,
+    "provincial_second_prize": 48,
+    "provincial_third_prize": 58,
+    "qualified_for_semifinal_count": 77
+  },
+  "records": [
+    {
+      "seq": 1,
+      "csbh": "AIC-2026-97110341",
+      "members": [
+        "杨珉",
+        "贾济硕",
+        "王丁涵"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 2,
+      "csbh": "AIC-2026-99361744",
+      "members": [
+        "李阅洋"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 3,
+      "csbh": "AIC-2026-58311760",
+      "members": [
+        "陈若伊楠",
+        "祝宇畅",
+        "林大为"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 4,
+      "csbh": "AIC-2026-33909847",
+      "members": [
+        "张家梁",
+        "刘润青",
+        "牛楚源"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 5,
+      "csbh": "AIC-2026-55278832",
+      "members": [
+        "刘亦奕",
+        "赵钦泽",
+        "张哲"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 6,
+      "csbh": "AIC-2026-51385795",
+      "members": [
+        "黄炫华",
+        "钟永康"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 7,
+      "csbh": "AIC-2026-95222683",
+      "members": [
+        "何圣立",
+        "张浩征",
+        "方鑫"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 8,
+      "csbh": "AIC-2026-25151533",
+      "members": [
+        "罗佳良",
+        "王睿秋",
+        "容国翔"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 9,
+      "csbh": "AIC-2026-13623713",
+      "members": [
+        "郑明航"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 10,
+      "csbh": "AIC-2026-79547015",
+      "members": [
+        "吴文迪",
+        "高致远",
+        "沈茜琳"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 11,
+      "csbh": "AIC-2026-33836108",
+      "members": [
+        "刘建斌",
+        "汤士元",
+        "张豫"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 12,
+      "csbh": "AIC-2026-83980070",
+      "members": [
+        "苏辉宝"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 13,
+      "csbh": "AIC-2026-34036674",
+      "members": [
+        "张祎博",
+        "施乐然",
+        "石倚铭"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 14,
+      "csbh": "AIC-2026-26670969",
+      "members": [
+        "朱丁"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 15,
+      "csbh": "AIC-2026-11183647",
+      "members": [
+        "徐宇霖",
+        "余志杰"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 16,
+      "csbh": "AIC-2026-93923535",
+      "members": [
+        "郭轶诚"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 17,
+      "csbh": "AIC-2026-37773935",
+      "members": [
+        "赵舒豪"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 18,
+      "csbh": "AIC-2026-85069695",
+      "members": [
+        "陆俊林",
+        "韩潇",
+        "周星明"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 19,
+      "csbh": "AIC-2026-65539663",
+      "members": [
+        "翟嘉庆",
+        "张鑫兵",
+        "胡子畅"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 20,
+      "csbh": "AIC-2026-38640046",
+      "members": [
+        "何泓桥",
+        "李翔",
+        "严弘毅"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 21,
+      "csbh": "AIC-2026-61805423",
+      "members": [
+        "刘士卓",
+        "史梓洋",
+        "郭宏宇"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 22,
+      "csbh": "AIC-2026-53763980",
+      "members": [
+        "保德林",
+        "孙圉馨",
+        "杨喻涵"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 23,
+      "csbh": "AIC-2026-61672318",
+      "members": [
+        "程成"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 24,
+      "csbh": "AIC-2026-81995894",
+      "members": [
+        "王选",
+        "袁昊"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 25,
+      "csbh": "AIC-2026-74424317",
+      "members": [
+        "赵云海"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 26,
+      "csbh": "AIC-2026-33569378",
+      "members": [
+        "殷豪豪"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 27,
+      "csbh": "AIC-2026-99949568",
+      "members": [
+        "王奕翔",
+        "薛文科",
+        "李馨怡"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 28,
+      "csbh": "AIC-2026-37717297",
+      "members": [
+        "何添鸿",
+        "李源",
+        "王明翔"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 29,
+      "csbh": "AIC-2026-97269613",
+      "members": [
+        "戴丽涵",
+        "刘芝彤",
+        "黄智康"
+      ],
+      "award": "省赛一等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 30,
+      "csbh": "AIC-2026-36628101",
+      "members": [
+        "唐怀雨"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 31,
+      "csbh": "AIC-2026-96536018",
+      "members": [
+        "汪俊军",
+        "陈浩"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 32,
+      "csbh": "AIC-2026-78401607",
+      "members": [
+        "徐自强"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 33,
+      "csbh": "AIC-2026-53509421",
+      "members": [
+        "胡腾鑫"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 34,
+      "csbh": "AIC-2026-59407723",
+      "members": [
+        "庄安然",
+        "张轩蓄",
+        "林圣东"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 35,
+      "csbh": "AIC-2026-58012441",
+      "members": [
+        "涂小虎"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 36,
+      "csbh": "AIC-2026-34469459",
+      "members": [
+        "汪锦程",
+        "杨丽磊"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 37,
+      "csbh": "AIC-2026-25759499",
+      "members": [
+        "王涛",
+        "唐佳瑶",
+        "杨浩康"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 38,
+      "csbh": "AIC-2026-80123811",
+      "members": [
+        "王松",
+        "李杰",
+        "李仪瑗"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 39,
+      "csbh": "AIC-2026-91859606",
+      "members": [
+        "赵亦凡",
+        "李梦雪"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 40,
+      "csbh": "AIC-2026-23519548",
+      "members": [
+        "肖家和",
+        "肖阳",
+        "刘子怡"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 41,
+      "csbh": "AIC-2026-26400097",
+      "members": [
+        "谭博仁",
+        "刘研东",
+        "朱继萱"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 42,
+      "csbh": "AIC-2026-29723594",
+      "members": [
+        "张博文"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 43,
+      "csbh": "AIC-2026-29124269",
+      "members": [
+        "张博",
+        "魏铭洋",
+        "闫迎瑞"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 44,
+      "csbh": "AIC-2026-25755345",
+      "members": [
+        "刘铭桓",
+        "卢均昊",
+        "李昊朕"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 45,
+      "csbh": "AIC-2026-51156070",
+      "members": [
+        "史一鸣"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 46,
+      "csbh": "AIC-2026-37635525",
+      "members": [
+        "陈少臻",
+        "唐嘉诚",
+        "许想"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 47,
+      "csbh": "AIC-2026-44578624",
+      "members": [
+        "常侯鑫",
+        "邓耀飞",
+        "吴宗达"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 48,
+      "csbh": "AIC-2026-87270923",
+      "members": [
+        "李妍慧",
+        "陈子烨"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 49,
+      "csbh": "AIC-2026-88812567",
+      "members": [
+        "刘凯瑞",
+        "殷曼玲",
+        "许曦元"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 50,
+      "csbh": "AIC-2026-43746508",
+      "members": [
+        "叶雯婷",
+        "王旗",
+        "罗子恒"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 51,
+      "csbh": "AIC-2026-99764881",
+      "members": [
+        "王俊豪",
+        "麻晓伟",
+        "李美云"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 52,
+      "csbh": "AIC-2026-81248839",
+      "members": [
+        "王子赫",
+        "江艺子涵",
+        "李泽雨"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 53,
+      "csbh": "AIC-2026-35530029",
+      "members": [
+        "杨博麟",
+        "王艺翰"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 54,
+      "csbh": "AIC-2026-33390117",
+      "members": [
+        "万耘豪",
+        "袁昊",
+        "林佳莹"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 55,
+      "csbh": "AIC-2026-29139994",
+      "members": [
+        "张仕祺"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 56,
+      "csbh": "AIC-2026-52311004",
+      "members": [
+        "李俊霖"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 57,
+      "csbh": "AIC-2026-33719317",
+      "members": [
+        "冯睿志",
+        "张梦宇",
+        "袁根状"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 58,
+      "csbh": "AIC-2026-65660125",
+      "members": [
+        "冯轩旗"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 59,
+      "csbh": "AIC-2026-60007889",
+      "members": [
+        "屈天聪",
+        "王全亚",
+        "杨锦涵"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 60,
+      "csbh": "AIC-2026-55950288",
+      "members": [
+        "刘怡辰",
+        "黄俊杰"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 61,
+      "csbh": "AIC-2026-63700415",
+      "members": [
+        "宋佳创",
+        "程双双"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 62,
+      "csbh": "AIC-2026-88155540",
+      "members": [
+        "阚司源",
+        "马寅诚",
+        "杜宇璇"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 63,
+      "csbh": "AIC-2026-29218458",
+      "members": [
+        "袁舒",
+        "连一茗",
+        "夏祺风"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 64,
+      "csbh": "AIC-2026-69536545",
+      "members": [
+        "章皇明",
+        "张硕硕",
+        "吴奕铭"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 65,
+      "csbh": "AIC-2026-14379556",
+      "members": [
+        "吕阳",
+        "龚攀",
+        "王春乾"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 66,
+      "csbh": "AIC-2026-76604525",
+      "members": [
+        "李中",
+        "崔天昱",
+        "王子夫"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 67,
+      "csbh": "AIC-2026-49872720",
+      "members": [
+        "王嘉琦",
+        "卞文杰",
+        "张硕"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 68,
+      "csbh": "AIC-2026-12102510",
+      "members": [
+        "王逸轩",
+        "卢泳希"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 69,
+      "csbh": "AIC-2026-11843816",
+      "members": [
+        "孙奕轩",
+        "闵国东",
+        "修岩"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 70,
+      "csbh": "AIC-2026-69612453",
+      "members": [
+        "潘政烨",
+        "何承洋",
+        "丁庆博"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 71,
+      "csbh": "AIC-2026-17417427",
+      "members": [
+        "王圣博"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 72,
+      "csbh": "AIC-2026-14980607",
+      "members": [
+        "乔起家"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 73,
+      "csbh": "AIC-2026-15862101",
+      "members": [
+        "梁斌",
+        "严思锐",
+        "潘文龙"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 74,
+      "csbh": "AIC-2026-14837417",
+      "members": [
+        "吴叶溦"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 75,
+      "csbh": "AIC-2026-32865027",
+      "members": [
+        "陈思源"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 76,
+      "csbh": "AIC-2026-40487261",
+      "members": [
+        "孙浩洋",
+        "牛思怡",
+        "李俊熹"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 77,
+      "csbh": "AIC-2026-24358802",
+      "members": [
+        "蔡梓溢"
+      ],
+      "award": "省赛二等奖",
+      "qualified": true,
+      "qualification_label": "晋级国赛"
+    },
+    {
+      "seq": 78,
+      "csbh": "AIC-2026-56392841",
+      "members": [
+        "景飞越"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 79,
+      "csbh": "AIC-2026-65937030",
+      "members": [
+        "圣天",
+        "张鞠炜",
+        "潘靖哲"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 80,
+      "csbh": "AIC-2026-47756447",
+      "members": [
+        "杨晨",
+        "文浩琦",
+        "邓凯云"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 81,
+      "csbh": "AIC-2026-18611829",
+      "members": [
+        "汪亦周"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 82,
+      "csbh": "AIC-2026-43429949",
+      "members": [
+        "刘奕辰",
+        "刘一箴",
+        "尚可桢"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 83,
+      "csbh": "AIC-2026-51898210",
+      "members": [
+        "黄昕怡",
+        "伍善丽",
+        "吴欣悦"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 84,
+      "csbh": "AIC-2026-53417148",
+      "members": [
+        "李逸朗",
+        "焦阮志",
+        "王思琪"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 85,
+      "csbh": "AIC-2026-72541878",
+      "members": [
+        "徐佳琪",
+        "林继成"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 86,
+      "csbh": "AIC-2026-66014944",
+      "members": [
+        "蔡佳芪",
+        "雷雨轩",
+        "胡帆"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 87,
+      "csbh": "AIC-2026-96495733",
+      "members": [
+        "王祥泽"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 88,
+      "csbh": "AIC-2026-73482330",
+      "members": [
+        "龚伟超",
+        "邓淇阳",
+        "刘雨桐"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 89,
+      "csbh": "AIC-2026-64136303",
+      "members": [
+        "李明航"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 90,
+      "csbh": "AIC-2026-13244781",
+      "members": [
+        "王建森",
+        "孙健博",
+        "孟楷翔"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 91,
+      "csbh": "AIC-2026-32473896",
+      "members": [
+        "江心田"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 92,
+      "csbh": "AIC-2026-48963606",
+      "members": [
+        "任哲源"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 93,
+      "csbh": "AIC-2026-64501795",
+      "members": [
+        "彭凯",
+        "彭政"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 94,
+      "csbh": "AIC-2026-92609005",
+      "members": [
+        "曾颖",
+        "夏瑗媛",
+        "柳皓尹"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 95,
+      "csbh": "AIC-2026-54341521",
+      "members": [
+        "吴依芫",
+        "鲁博文"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 96,
+      "csbh": "AIC-2026-59494856",
+      "members": [
+        "李佳斌"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 97,
+      "csbh": "AIC-2026-90230556",
+      "members": [
+        "李福康",
+        "谢毅鹏",
+        "胡谦艺"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 98,
+      "csbh": "AIC-2026-41823763",
+      "members": [
+        "桑国强"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 99,
+      "csbh": "AIC-2026-38355645",
+      "members": [
+        "都昊宇",
+        "白佳佳",
+        "李芢航"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 100,
+      "csbh": "AIC-2026-69240540",
+      "members": [
+        "周富贵",
+        "邹毅",
+        "宋馨怡"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 101,
+      "csbh": "AIC-2026-58327397",
+      "members": [
+        "李炳毅",
+        "何守旺",
+        "陈葆泽"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 102,
+      "csbh": "AIC-2026-21021031",
+      "members": [
+        "聂宇琪",
+        "程会镔",
+        "王绍乾"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 103,
+      "csbh": "AIC-2026-23690002",
+      "members": [
+        "张耕铭",
+        "王佳慧"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 104,
+      "csbh": "AIC-2026-57535739",
+      "members": [
+        "胡希",
+        "杨乐",
+        "徐书和"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 105,
+      "csbh": "AIC-2026-14644700",
+      "members": [
+        "范恩通"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 106,
+      "csbh": "AIC-2026-52269748",
+      "members": [
+        "余帅鹏",
+        "宋晨鑫"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 107,
+      "csbh": "AIC-2026-39920631",
+      "members": [
+        "鄢润东",
+        "夏薇怡",
+        "罗爽爽"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 108,
+      "csbh": "AIC-2026-76032140",
+      "members": [
+        "王一博",
+        "王盛",
+        "徐友成"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 109,
+      "csbh": "AIC-2026-59450632",
+      "members": [
+        "李为峰",
+        "王翔"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 110,
+      "csbh": "AIC-2026-45567537",
+      "members": [
+        "邓子龙",
+        "刘嘉婷",
+        "牛梓楠"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 111,
+      "csbh": "AIC-2026-63611232",
+      "members": [
+        "赖梦琪"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 112,
+      "csbh": "AIC-2026-79201939",
+      "members": [
+        "李昀灿",
+        "周子杰",
+        "刘靖宇"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 113,
+      "csbh": "AIC-2026-32839717",
+      "members": [
+        "何成轩",
+        "熊聪"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 114,
+      "csbh": "AIC-2026-83436496",
+      "members": [
+        "夏松阳"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 115,
+      "csbh": "AIC-2026-14947195",
+      "members": [
+        "陈松正"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 116,
+      "csbh": "AIC-2026-62275853",
+      "members": [
+        "何惠超"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 117,
+      "csbh": "AIC-2026-98478602",
+      "members": [
+        "李文",
+        "董洋",
+        "何浩"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 118,
+      "csbh": "AIC-2026-75037577",
+      "members": [
+        "明琪",
+        "赵禹晰"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 119,
+      "csbh": "AIC-2026-52339427",
+      "members": [
+        "严如玉",
+        "罗政杰"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 120,
+      "csbh": "AIC-2026-69659868",
+      "members": [
+        "李昂赛",
+        "吴优",
+        "林炜泰"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 121,
+      "csbh": "AIC-2026-84390177",
+      "members": [
+        "安俊杰"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 122,
+      "csbh": "AIC-2026-78610714",
+      "members": [
+        "陈嘉晟"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 123,
+      "csbh": "AIC-2026-64331329",
+      "members": [
+        "刘铭硕"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 124,
+      "csbh": "AIC-2026-97797366",
+      "members": [
+        "赵霖",
+        "夏春铭",
+        "穆誉心"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 125,
+      "csbh": "AIC-2026-10566792",
+      "members": [
+        "李兴强",
+        "张靖源",
+        "杨靖宇"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 126,
+      "csbh": "AIC-2026-21923316",
+      "members": [
+        "邓广建",
+        "邓梦婷",
+        "陈振涛"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 127,
+      "csbh": "AIC-2026-60017622",
+      "members": [
+        "邓可瑞"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 128,
+      "csbh": "AIC-2026-77178946",
+      "members": [
+        "陈子程",
+        "陈俊杰",
+        "崔子豪"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 129,
+      "csbh": "AIC-2026-31092540",
+      "members": [
+        "李茹楠",
+        "李浩男",
+        "金宇航"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 130,
+      "csbh": "AIC-2026-43089158",
+      "members": [
+        "解树冉",
+        "颜嘉泽",
+        "王泺寒"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 131,
+      "csbh": "AIC-2026-42695215",
+      "members": [
+        "杨星"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 132,
+      "csbh": "AIC-2026-83664280",
+      "members": [
+        "周昶安"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 133,
+      "csbh": "AIC-2026-97013118",
+      "members": [
+        "王子颂"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 134,
+      "csbh": "AIC-2026-17339668",
+      "members": [
+        "高畅",
+        "刘天宇",
+        "杜笑涵"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    },
+    {
+      "seq": 135,
+      "csbh": "AIC-2026-80659610",
+      "members": [
+        "杨海堂"
+      ],
+      "award": "省赛三等奖",
+      "qualified": false,
+      "qualification_label": ""
+    }
+  ]
+}

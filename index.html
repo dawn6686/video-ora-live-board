@@ -1,0 +1,1591 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>半决赛实时看板 · 基于视频大模型的通用视频高光剪辑 (77支晋级队全量监控)</title>
+  <style>
+    :root {
+      --bg: #f6f8fa;
+      --bg-card: #ffffff;
+      --bg-subtle: #f0f3f6;
+      --bg-hover: #f3f6fa;
+      --bg-pinned: #fffbeb;
+      --border: #d8dee4;
+      --text: #1f2328;
+      --text-muted: #59636e;
+      --text-faint: #8c959f;
+      --primary: #1f6feb;
+      --primary-soft: rgba(31, 111, 235, 0.1);
+      --green: #1a7f37;
+      --green-soft: rgba(26, 127, 55, 0.12);
+      --red: #cf222e;
+      --red-soft: rgba(207, 34, 46, 0.12);
+      --amber: #9a6700;
+      --amber-soft: rgba(154, 103, 0, 0.14);
+      --purple: #8250df;
+      --purple-soft: rgba(130, 80, 223, 0.12);
+      --shadow: 0 1px 3px rgba(27, 31, 36, 0.07);
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+    html[data-theme="dark"] {
+      --bg: #0b0f17;
+      --bg-card: #131a26;
+      --bg-subtle: #1b2434;
+      --bg-hover: #1a2333;
+      --bg-pinned: #241f14;
+      --border: #263246;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --text-faint: #6e7681;
+      --primary: #4493f8;
+      --primary-soft: rgba(68, 147, 248, 0.15);
+      --green: #3fb950;
+      --green-soft: rgba(63, 185, 80, 0.15);
+      --red: #f85149;
+      --red-soft: rgba(248, 81, 73, 0.15);
+      --amber: #d29922;
+      --amber-soft: rgba(210, 153, 34, 0.18);
+      --purple: #a371f7;
+      --purple-soft: rgba(163, 113, 247, 0.15);
+      --shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 16px 20px 48px;
+    }
+    /* Top Header */
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #1f6feb, #8250df);
+      color: #fff;
+      font-weight: 800;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+    }
+    .brand h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--text-faint);
+    }
+    .status-pill.live .status-dot {
+      background: var(--green);
+      box-shadow: 0 0 0 3px var(--green-soft);
+    }
+    .status-pill.static .status-dot {
+      background: var(--amber);
+    }
+    .btn, select.btn {
+      appearance: none;
+      background: var(--bg-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s;
+    }
+    .btn:hover { background: var(--bg-hover); border-color: var(--text-faint); }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .btn-primary:hover { opacity: 0.92; background: var(--primary); color: #fff; }
+    /* Metric Cards */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 15px;
+      box-shadow: var(--shadow);
+    }
+    .metric-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .metric-value {
+      font-size: 22px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      margin: 4px 0 2px;
+    }
+    .metric-foot {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    /* Pinned Watchlist */
+    .watchlist-panel {
+      background: var(--bg-pinned);
+      border: 1px solid var(--amber);
+      border-radius: 10px;
+      padding: 12px 15px;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .watchlist-panel.active { display: block; }
+    .watchlist-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--amber);
+    }
+    .watchlist-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 10px;
+    }
+    .watch-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .watch-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .watch-card-title {
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .watch-card-score {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .watch-card-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    /* Main Layout: Left Content + Right Live Feed */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 1120px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    /* Tabs & Toolbar */
+    .tabs-bar {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-subtle);
+      padding: 0 12px;
+      gap: 4px;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 11px 14px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      background: var(--bg-card);
+    }
+    .tab-count {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      padding: 1px 6px;
+      border-radius: 99px;
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+    }
+    .tab-btn.active .tab-count {
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+    .toolbar {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .pill:hover { color: var(--text); border-color: var(--text-faint); }
+    .pill.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 240px;
+      max-width: 380px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 6px 11px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-soft);
+    }
+    /* Table */
+    .table-wrap {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      padding: 9px 11px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    th {
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 12px;
+      user-select: none;
+      cursor: pointer;
+    }
+    th:hover { color: var(--text); }
+    tr:hover td { background: var(--bg-hover); }
+    tr.pinned-row td { background: var(--bg-pinned); }
+    tr.unsubmitted-row td { opacity: 0.82; }
+    .star-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      padding: 2px 4px;
+      color: var(--text-faint);
+    }
+    .star-btn.starred { color: #f59e0b; }
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 26px;
+      height: 22px;
+      padding: 0 6px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 12.5px;
+      background: var(--bg-subtle);
+    }
+    .rank-1 { background: #fef08a; color: #854d0e; }
+    .rank-2 { background: #e2e8f0; color: #334155; }
+    .rank-3 { background: #fed7aa; color: #9a3412; }
+    html[data-theme="dark"] .rank-1 { background: #713f12; color: #fef08a; }
+    html[data-theme="dark"] .rank-2 { background: #334155; color: #f1f5f9; }
+    html[data-theme="dark"] .rank-3 { background: #7c2d12; color: #fed7aa; }
+    .badge {
+      display: inline-block;
+      padding: 1px 7px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-p1 { background: var(--purple-soft); color: var(--purple); }
+    .badge-p2 { background: var(--primary-soft); color: var(--primary); }
+    .badge-up { background: var(--green-soft); color: var(--green); font-family: var(--font-mono); }
+    .badge-down { background: var(--red-soft); color: var(--red); font-family: var(--font-mono); }
+    .badge-same { background: var(--bg-subtle); color: var(--text-muted); font-family: var(--font-mono); }
+    .badge-wait { background: var(--amber-soft); color: var(--amber); }
+    .mono { font-family: var(--font-mono); }
+    .score-main {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 14.5px;
+    }
+    .team-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .team-name {
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .team-id {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+    .members-cell {
+      max-width: 200px;
+      white-space: normal;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    /* Cutoff separator row in table */
+    tr.cutoff-divider td {
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 12px;
+      text-align: center;
+    }
+    /* Right Sidebar: Live Feed */
+    .feed-header {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .feed-title {
+      font-weight: 700;
+      font-size: 13.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .feed-filters {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      background: var(--bg-subtle);
+    }
+    .feed-list {
+      max-height: 740px;
+      overflow-y: auto;
+      divide-y: 1px solid var(--border);
+    }
+    .feed-item {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .feed-item:hover { background: var(--bg-hover); }
+    .feed-item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+    .feed-team {
+      font-weight: 600;
+      font-size: 13px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .feed-time {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      flex-shrink: 0;
+    }
+    .feed-item-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    /* Sub-panels for Distribution & Timing */
+    .subpanel-body {
+      padding: 16px;
+    }
+    .dist-bar-row {
+      display: grid;
+      grid-template-columns: 95px 1fr 70px;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 12.5px;
+    }
+    .dist-bar-track {
+      height: 20px;
+      background: var(--bg-subtle);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .dist-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--purple));
+      border-radius: 5px;
+      transition: width 0.25s;
+    }
+    .predict-box {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .hidden { display: none !important; }
+  </style>
+  <!-- Load local static snapshot first so file:// protocol works without server -->
+  <script src="./data/snapshot.js"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-logo">ORA</div>
+        <div>
+          <h1>
+            <span>视频高光剪辑 · 半决赛实时看板</span>
+            <span class="badge badge-p1">国赛晋级池 77 支队伍全量监控</span>
+          </h1>
+          <div class="brand-sub" id="subtitleText">
+            正在加载最新半决赛与复赛基线数据...
+          </div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <div class="status-pill" id="connStatusPill" title="浏览器可直接跨域请求官方接口获取实时数据；离线时自动回退静态快照">
+          <span class="status-dot"></span>
+          <span id="connStatusText">连接中...</span>
+        </div>
+        <select class="btn" id="autoRefreshSelect" title="自动向官方接口拉取最新半决赛榜单">
+          <option value="0">自动刷新: 关闭</option>
+          <option value="30">自动刷新: 30秒</option>
+          <option value="60" selected>自动刷新: 60秒</option>
+          <option value="180">自动刷新: 3分钟</option>
+        </select>
+        <button class="btn btn-primary" id="refreshNowBtn">🔄 立即直连刷新</button>
+        <button class="btn" id="exportCsvBtn">📥 导出 CSV</button>
+        <button class="btn" id="themeToggleBtn" title="切换浅色/暗色模式">🌓 主题</button>
+      </div>
+    </header>
+
+    <!-- Summary Metrics -->
+    <section class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>半决赛已出分 / 晋级总数</span>
+          <span class="badge badge-p2" id="metricProgressPct">--%</span>
+        </div>
+        <div class="metric-value" id="metricScoredCount">-- / 77</div>
+        <div class="metric-foot" id="metricUnsubmittedFoot">还有 -- 支晋级队伍尚未出分</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>当前半决赛第一名</span>
+          <span class="badge badge-up" id="metricTop1Delta">--</span>
+        </div>
+        <div class="metric-value" id="metricTop1Score">--</div>
+        <div class="metric-foot" id="metricTop1Team">--</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>前 15% 分数线 (第11/12名)</span>
+          <span class="mono" style="font-size:11px">按77队基数</span>
+        </div>
+        <div class="metric-value" id="metricLine15">--</div>
+        <div class="metric-foot" id="metricLine15Foot">按当前已出分前15%: --</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>前 40% 分数线 (第30/31名)</span>
+          <span class="mono" style="font-size:11px">按77队基数</span>
+        </div>
+        <div class="metric-value" id="metricLine40">--</div>
+        <div class="metric-foot" id="metricLine40Foot">按当前已出分前40%: --</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>半决赛较复赛涨分队伍</span>
+          <span class="badge badge-up" id="metricImprovedRatio">--</span>
+        </div>
+        <div class="metric-value" id="metricImprovedCount">--</div>
+        <div class="metric-foot" id="metricMaxGainFoot">最大单队提分: --</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>平台评测耗时 (中位数 / P80)</span>
+          <span class="badge badge-same">DFSJ - TJSJ</span>
+        </div>
+        <div class="metric-value" id="metricJudgeMedian">--</div>
+        <div class="metric-foot" id="metricLastSubmitFoot">最近出分: --</div>
+      </div>
+    </section>
+
+    <!-- Pinned Watchlist (Starred Teams) -->
+    <section class="watchlist-panel" id="watchlistPanel">
+      <div class="watchlist-header">
+        <span>⭐ 重点盯防 / 我的关注队伍（点击表格行首 ☆ 即可添加或取消，保存在本地浏览器）</span>
+        <button class="btn" id="clearWatchlistBtn" style="padding:2px 8px;font-size:11px;">清空关注</button>
+      </div>
+      <div class="watchlist-cards" id="watchlistCards"></div>
+    </section>
+
+    <!-- Main Grid -->
+    <div class="main-grid">
+      <!-- Left Main Panel -->
+      <div class="panel">
+        <div class="tabs-bar">
+          <button class="tab-btn active" data-tab="board">
+            🏆 半决赛实时总榜 <span class="tab-count" id="tabCountAll">77</span>
+          </button>
+          <button class="tab-btn" data-tab="unsubmitted">
+            🕵️ 潜伏未交晋级队 <span class="tab-count" id="tabCountUnsub">--</span>
+          </button>
+          <button class="tab-btn" data-tab="distribution">
+            📊 分数线与分布模拟
+          </button>
+          <button class="tab-btn" data-tab="timing">
+            ⏱️ 出分耗时与预测
+          </button>
+        </div>
+
+        <!-- Tab 1 & 2 Shared Table View -->
+        <div id="viewTableSection">
+          <div class="toolbar">
+            <div class="filter-pills" id="filterPills">
+              <button class="pill active" data-filter="all">全部晋级 (77)</button>
+              <button class="pill" data-filter="scored">已出分</button>
+              <button class="pill" data-filter="unsubmitted">未出分/潜伏</button>
+              <button class="pill" data-filter="p1">省赛一等奖 (29)</button>
+              <button class="pill" data-filter="p2">省赛二等奖 (48)</button>
+              <button class="pill" data-filter="improved">较复赛涨分</button>
+              <button class="pill" data-filter="starred">⭐ 已关注</button>
+            </div>
+            <div class="search-box">
+              <input
+                type="search"
+                class="search-input"
+                id="searchInput"
+                placeholder="搜索队名 / 参赛编号 CSBH / 队员姓名 (空格多词)..."
+              />
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:36px;" data-sort="starred">☆</th>
+                  <th data-sort="sf_rank">半决赛名次 ↕</th>
+                  <th data-sort="tdmc">队伍名称 / 参赛编号 ↕</th>
+                  <th>团队成员 (官方名单)</th>
+                  <th data-sort="r2_award_seq">复赛奖项 ↕</th>
+                  <th data-sort="sf_score">半决赛得分 ↕</th>
+                  <th data-sort="delta_vs_r2">较复赛涨跌 ↕</th>
+                  <th data-sort="r2_score">复赛成绩 (排名) ↕</th>
+                  <th data-sort="sf_dfsj">最后提交 / 出分时间 ↕</th>
+                  <th data-sort="sf_judge_sec">评测耗时 ↕</th>
+                </tr>
+              </thead>
+              <tbody id="boardTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 3: Score Distribution & Cutoffs -->
+        <div id="viewDistributionSection" class="subpanel-body hidden">
+          <h3 style="margin-top:0;">1. 分档分数线对比（按 77 支晋级总基数 vs 按当前已出分队伍数）</h3>
+          <p style="color:var(--text-muted);font-size:12.5px;margin-top:-6px;">
+            注：国赛/半决赛具体获奖比例以组委会最终通知为准。下表提供各常用比例（10% / 15% / 25% / 30% / 40% / 50%）在两种分母口径下的实时门槛分数与守门员队伍：
+          </p>
+          <div class="table-wrap" style="margin-bottom:22px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>累计比例档位</th>
+                  <th>按 77 支晋级总基数 (向下/向上名次)</th>
+                  <th>对应守门分数 (77队口径)</th>
+                  <th>按当前已出分队伍基数 (名次)</th>
+                  <th>对应守门分数 (已出分口径)</th>
+                  <th>关注队伍距该线分差</th>
+                </tr>
+              </thead>
+              <tbody id="cutoffTableBody"></tbody>
+            </table>
+          </div>
+
+          <h3>2. 半决赛得分分布直方图</h3>
+          <div id="distHistogramWrap"></div>
+        </div>
+
+        <!-- Tab 4: Judging Duration & Prediction -->
+        <div id="viewTimingSection" class="subpanel-body hidden">
+          <div class="predict-box">
+            <div>
+              <div style="font-weight:700;font-size:15px;">🔮 提交出分时间预测器</div>
+              <div style="font-size:12.5px;color:var(--text-muted);margin-top:2px;">
+                基于当前半决赛全部已出分记录的 <code>DFSJ_ - ZPZHTJSJ_</code> 评测耗时分布实时反推
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+              <label style="font-size:12.5px;color:var(--text-muted);">假设提交时间:</label>
+              <input type="time" id="predictInputTime" step="1" class="search-input" style="width:130px;font-family:var(--font-mono);" />
+              <button class="btn" id="predictUseNowBtn">填入当前时刻</button>
+            </div>
+            <div id="predictResultText" style="font-family:var(--font-mono);font-size:13.5px;font-weight:700;color:var(--primary);">
+              预计出分：--
+            </div>
+          </div>
+
+          <h3 style="margin-top:0;">半决赛各队提交评测耗时明细（按出分时间倒序）</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>半决赛名次</th>
+                  <th>队伍名称</th>
+                  <th>半决赛得分</th>
+                  <th>作品最后提交时间 (ZPZHTJSJ_)</th>
+                  <th>打分完成时间 (DFSJ_)</th>
+                  <th>评测耗时</th>
+                </tr>
+              </thead>
+              <tbody id="timingTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Sidebar: Real-time Activity Feed -->
+      <aside class="panel">
+        <div class="feed-header">
+          <div class="feed-title">
+            <span>⚡ 实时出分与刷分动态</span>
+          </div>
+          <span class="tab-count" id="feedCountBadge">0</span>
+        </div>
+        <div class="feed-filters" id="feedFilterBar">
+          <button class="pill active" data-feed-hours="0">全部出分</button>
+          <button class="pill" data-feed-hours="3">近 3h</button>
+          <button class="pill" data-feed-hours="12">近 12h</button>
+          <button class="pill" data-feed-hours="24">近 24h</button>
+          <button class="pill" data-feed-hours="starred">⭐ 关注</button>
+        </div>
+        <div class="feed-list" id="feedList"></div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const API_URL = "https://jluat-smart-app-api.yuntu.cn/third/jsphb";
+      const RW_ID = "4863942083800600605";
+      const STBH = "4863942083800600619";
+
+      const STORAGE_KEYS = {
+        STARRED: "video_ora_sf_starred_csbh_v1",
+        THEME: "video_ora_sf_theme_v1",
+        LIVE_CACHE: "video_ora_sf_last_live_scores_v1",
+        LIVE_EVENTS: "video_ora_sf_live_events_v1"
+      };
+
+      let appState = {
+        snapshot: window.__INITIAL_SNAPSHOT__ || null,
+        mode: "static", // "live" | "static"
+        lastFetchedAt: null,
+        activeTab: "board",
+        activeFilter: "all",
+        searchQuery: "",
+        sortKey: "sf_rank",
+        sortAsc: true,
+        feedFilter: "0",
+        starred: new Set(JSON.parse(localStorage.getItem(STORAGE_KEYS.STARRED) || "[]")),
+        autoRefreshTimer: null
+      };
+
+      // Theme setup
+      const savedTheme = localStorage.getItem(STORAGE_KEYS.THEME);
+      if (savedTheme === "dark" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+      document.getElementById("themeToggleBtn").addEventListener("click", () => {
+        const cur = document.documentElement.getAttribute("data-theme");
+        const next = cur === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem(STORAGE_KEYS.THEME, next);
+      });
+
+      function saveStarred() {
+        localStorage.setItem(STORAGE_KEYS.STARRED, JSON.stringify(Array.from(appState.starred)));
+      }
+
+      function parseDiffSec(t1, t2) {
+        if (!t1 || !t2) return null;
+        const d1 = new Date(t1.replace(" ", "T") + "+08:00");
+        const d2 = new Date(t2.replace(" ", "T") + "+08:00");
+        if (isNaN(d1) || isNaN(d2)) return null;
+        const sec = Math.round((d2 - d1) / 1000);
+        return sec >= 0 ? sec : null;
+      }
+
+      function formatSec(sec) {
+        if (sec === null || sec === undefined) return "—";
+        if (sec < 60) return sec + "s";
+        const m = Math.floor(sec / 60);
+        const s = sec % 60;
+        return m + "m " + s + "s";
+      }
+
+      function formatRelativeTime(dateStr) {
+        if (!dateStr) return "—";
+        const dt = new Date(dateStr.replace(" ", "T") + "+08:00");
+        if (isNaN(dt)) return dateStr;
+        const diffMs = Date.now() - dt.getTime();
+        const diffMin = Math.floor(diffMs / 60000);
+        if (diffMin < 1) return "刚刚";
+        if (diffMin < 60) return diffMin + " 分钟前";
+        const diffHr = Math.floor(diffMin / 60);
+        if (diffHr < 24) return diffHr + " 小时 " + (diffMin % 60) + " 分前";
+        const diffDay = Math.floor(diffHr / 24);
+        return diffDay + " 天前 (" + dateStr.slice(5, 16) + ")";
+      }
+
+      async function fetchStageDirect(jd) {
+        const resp = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            pageNo: 0,
+            pageSize: 20,
+            type: "JSDF",
+            rwId: RW_ID,
+            stbh: STBH,
+            jd: jd
+          })
+        });
+        if (!resp.ok) throw new Error("HTTP " + resp.status);
+        return await resp.json();
+      }
+
+      // Live browser fetch that merges into the 77-team base roster
+      async function refreshLiveFromOfficialApi() {
+        const btn = document.getElementById("refreshNowBtn");
+        btn.disabled = true;
+        btn.textContent = "⏳ 正在拉取官方接口...";
+        try {
+          // Ensure we have base snapshot (from window.__INITIAL_SNAPSHOT__ or ./data/snapshot.json)
+          if (!appState.snapshot) {
+            const r = await fetch("./data/snapshot.json?t=" + Date.now());
+            appState.snapshot = await r.json();
+          }
+          const [sfData, r2Data] = await Promise.all([
+            fetchStageDirect("半决赛"),
+            fetchStageDirect("复赛")
+          ]);
+          const sfRows = sfData.data || [];
+          const r2Rows = r2Data.data || [];
+          const sfByCsbh = {};
+          sfRows.forEach(r => { sfByCsbh[r.CSBH_] = r; });
+          const r2ByCsbh = {};
+          r2Rows.forEach(r => { r2ByCsbh[r.CSBH_] = r; });
+
+          // Check against browser cached scores for live diff events
+          const prevCache = JSON.parse(localStorage.getItem(STORAGE_KEYS.LIVE_CACHE) || "{}");
+          const liveEvents = JSON.parse(localStorage.getItem(STORAGE_KEYS.LIVE_EVENTS) || "[]");
+          const newCache = {};
+          const nowIso = new Date().toISOString();
+
+          sfRows.forEach(r => {
+            const csbh = r.CSBH_;
+            newCache[csbh] = { score: r.FS_, rank: Number(r.XH_), tjsj: r.ZPZHTJSJ_, dfsj: r.DFSJ_, tdmc: r.TDMC_ };
+            const prev = prevCache[csbh];
+            if (Object.keys(prevCache).length > 0) {
+              if (!prev) {
+                liveEvents.push({
+                  type: "new_submission",
+                  detected_at: nowIso,
+                  csbh,
+                  tdmc: r.TDMC_,
+                  new_score: r.FS_,
+                  prev_score: null,
+                  delta: null,
+                  new_rank: Number(r.XH_),
+                  tjsj: r.ZPZHTJSJ_,
+                  dfsj: r.DFSJ_,
+                  judge_sec: parseDiffSec(r.ZPZHTJSJ_, r.DFSJ_)
+                });
+              } else if (prev.score !== r.FS_ || prev.tjsj !== r.ZPZHTJSJ_) {
+                const d = (parseFloat(r.FS_) - parseFloat(prev.score));
+                liveEvents.push({
+                  type: "score_update",
+                  detected_at: nowIso,
+                  csbh,
+                  tdmc: r.TDMC_,
+                  new_score: r.FS_,
+                  prev_score: prev.score,
+                  delta: isNaN(d) ? null : Number(d.toFixed(4)),
+                  new_rank: Number(r.XH_),
+                  prev_rank: prev.rank,
+                  tjsj: r.ZPZHTJSJ_,
+                  dfsj: r.DFSJ_,
+                  judge_sec: parseDiffSec(r.ZPZHTJSJ_, r.DFSJ_)
+                });
+              }
+            }
+          });
+          localStorage.setItem(STORAGE_KEYS.LIVE_CACHE, JSON.stringify(newCache));
+          localStorage.setItem(STORAGE_KEYS.LIVE_EVENTS, JSON.stringify(liveEvents.slice(-200)));
+
+          // Build roster map from existing 77-team metadata
+          const metaByCsbh = {};
+          (appState.snapshot.teams || []).forEach(t => {
+            metaByCsbh[t.csbh] = t;
+          });
+
+          const updatedTeams = [];
+          const seen = new Set();
+
+          sfRows.forEach(sf => {
+            const csbh = sf.CSBH_;
+            seen.add(csbh);
+            const meta = metaByCsbh[csbh] || {};
+            const r2 = r2ByCsbh[csbh] || {};
+            const sfScore = sf.FS_ ? parseFloat(sf.FS_) : null;
+            const r2Score = r2.FS_ ? parseFloat(r2.FS_) : (meta.r2_score ?? null);
+            const deltaVsR2 = (sfScore !== null && r2Score !== null) ? Number((sfScore - r2Score).toFixed(4)) : null;
+
+            updatedTeams.push({
+              csbh,
+              tdmc: sf.TDMC_ || r2.TDMC_ || meta.tdmc || "未知队伍",
+              members: meta.members || [],
+              r2_award: meta.r2_award || "晋级国赛",
+              r2_award_seq: meta.r2_award_seq || 999,
+              has_sf_score: true,
+              sf_rank: Number(sf.XH_),
+              sf_score: sfScore,
+              sf_score_str: sf.FS_ || "",
+              sf_tjsj: sf.ZPZHTJSJ_ || "",
+              sf_dfsj: sf.DFSJ_ || "",
+              sf_judge_sec: parseDiffSec(sf.ZPZHTJSJ_, sf.DFSJ_),
+              r2_rank: r2.XH_ ? Number(r2.XH_) : (meta.r2_rank ?? null),
+              r2_score: r2Score,
+              r2_score_str: r2.FS_ || meta.r2_score_str || "",
+              r2_tjsj: r2.ZPZHTJSJ_ || meta.r2_tjsj || "",
+              delta_vs_r2: deltaVsR2
+            });
+          });
+
+          const unsubmitted = [];
+          Object.values(metaByCsbh).forEach(meta => {
+            if (seen.has(meta.csbh)) return;
+            const r2 = r2ByCsbh[meta.csbh] || {};
+            const r2Score = r2.FS_ ? parseFloat(r2.FS_) : (meta.r2_score ?? null);
+            unsubmitted.push({
+              ...meta,
+              tdmc: r2.TDMC_ || meta.tdmc,
+              has_sf_score: false,
+              sf_rank: null,
+              sf_score: null,
+              sf_score_str: "",
+              sf_tjsj: "",
+              sf_dfsj: "",
+              sf_judge_sec: null,
+              r2_rank: r2.XH_ ? Number(r2.XH_) : meta.r2_rank,
+              r2_score: r2Score,
+              r2_score_str: r2.FS_ || meta.r2_score_str || "",
+              delta_vs_r2: null
+            });
+          });
+          unsubmitted.sort((a, b) => (a.r2_rank || 9999) - (b.r2_rank || 9999));
+
+          appState.snapshot.teams = updatedTeams.concat(unsubmitted);
+          appState.snapshot.platform_create_time = sfRows[0]?.createTime || appState.snapshot.platform_create_time;
+          appState.snapshot.summary.sf_scored_count = sfRows.length;
+          appState.snapshot.summary.sf_unsubmitted_count = unsubmitted.length;
+          if (updatedTeams[0]) {
+            appState.snapshot.summary.top1_team = updatedTeams[0].tdmc;
+            appState.snapshot.summary.top1_score = updatedTeams[0].sf_score_str;
+          }
+          appState.mode = "live";
+          appState.lastFetchedAt = new Date();
+        } catch (err) {
+          console.warn("Direct API fetch fell back to static snapshot:", err);
+          if (!appState.snapshot) {
+            try {
+              const r = await fetch("./data/snapshot.json?t=" + Date.now());
+              appState.snapshot = await r.json();
+            } catch (e2) {}
+          }
+          appState.mode = "static";
+        } finally {
+          btn.disabled = false;
+          btn.textContent = "🔄 立即直连刷新";
+          renderAll();
+        }
+      }
+
+      function renderAll() {
+        const snap = appState.snapshot;
+        if (!snap) return;
+
+        const teams = snap.teams || [];
+        const scoredTeams = teams.filter(t => t.has_sf_score).sort((a, b) => a.sf_rank - b.sf_rank);
+        const unsubTeams = teams.filter(t => !t.has_sf_score);
+
+        // Status pill & subtitle
+        const pill = document.getElementById("connStatusPill");
+        const pillText = document.getElementById("connStatusText");
+        if (appState.mode === "live") {
+          pill.className = "status-pill live";
+          const tStr = appState.lastFetchedAt ? appState.lastFetchedAt.toLocaleTimeString("zh-CN", { hour12: false }) : "";
+          pillText.textContent = "实时直连官方接口 (" + tStr + ")";
+        } else {
+          pill.className = "status-pill static";
+          pillText.textContent = "静态快照 (" + (snap.snapshot_id || "") + ")";
+        }
+        document.getElementById("subtitleText").innerHTML =
+          `平台榜单生成时间：<b class="mono">${snap.platform_create_time || "—"}</b> · 晋级名单来源：官方复赛获奖名单 (省一 29 队 + 省二 48 队 = 77 队) · <a href="${snap.source_url}" target="_blank" rel="noopener">官方榜单页 ↗</a>`;
+
+        // Metrics
+        const pct = ((scoredTeams.length / 77) * 100).toFixed(1) + "%";
+        document.getElementById("metricProgressPct").textContent = pct;
+        document.getElementById("metricScoredCount").textContent = `${scoredTeams.length} / 77`;
+        document.getElementById("metricUnsubmittedFoot").textContent = `还有 ${unsubTeams.length} 支晋级队伍尚未出分`;
+        document.getElementById("tabCountAll").textContent = teams.length;
+        document.getElementById("tabCountUnsub").textContent = unsubTeams.length;
+
+        if (scoredTeams.length > 0) {
+          const top1 = scoredTeams[0];
+          document.getElementById("metricTop1Score").textContent = top1.sf_score.toFixed(2);
+          document.getElementById("metricTop1Team").textContent = `${top1.tdmc} (${top1.csbh})`;
+          const d1 = top1.delta_vs_r2;
+          document.getElementById("metricTop1Delta").textContent =
+            d1 !== null ? (d1 >= 0 ? `较复赛 +${d1.toFixed(2)}` : `较复赛 ${d1.toFixed(2)}`) : "—";
+        }
+
+        // Line 15% & Line 40%
+        const getScoreAtRank = (r) => {
+          const idx = r - 1;
+          return idx >= 0 && idx < scoredTeams.length ? scoredTeams[idx].sf_score.toFixed(2) : "未满额";
+        };
+        const r15_77 = Math.floor(77 * 0.15); // 11
+        const r40_77 = Math.floor(77 * 0.40); // 30
+        const r15_cur = Math.max(1, Math.floor(scoredTeams.length * 0.15));
+        const r40_cur = Math.max(1, Math.floor(scoredTeams.length * 0.40));
+
+        document.getElementById("metricLine15").textContent = getScoreAtRank(r15_77);
+        document.getElementById("metricLine15Foot").textContent =
+          `当前已出分前15% (第${r15_cur}名): ${getScoreAtRank(r15_cur)}`;
+        document.getElementById("metricLine40").textContent = getScoreAtRank(r40_77);
+        document.getElementById("metricLine40Foot").textContent =
+          `当前已出分前40% (第${r40_cur}名): ${getScoreAtRank(r40_cur)}`;
+
+        // Improved vs R2
+        const improvedTeams = scoredTeams.filter(t => t.delta_vs_r2 !== null && t.delta_vs_r2 > 0);
+        const sameTeams = scoredTeams.filter(t => t.delta_vs_r2 !== null && Math.abs(t.delta_vs_r2) < 1e-6);
+        document.getElementById("metricImprovedCount").textContent =
+          `${improvedTeams.length} 涨 / ${sameTeams.length} 平`;
+        document.getElementById("metricImprovedRatio").textContent =
+          scoredTeams.length ? `占已出分 ${Math.round((improvedTeams.length / scoredTeams.length) * 100)}%` : "—";
+        if (improvedTeams.length > 0) {
+          const bestGain = [...improvedTeams].sort((a, b) => b.delta_vs_r2 - a.delta_vs_r2)[0];
+          document.getElementById("metricMaxGainFoot").textContent =
+            `最大提分: ${bestGain.tdmc} (+${bestGain.delta_vs_r2.toFixed(2)})`;
+        }
+
+        // Judge duration stats
+        const secs = scoredTeams.map(t => t.sf_judge_sec).filter(s => s !== null && s >= 0 && s < 7200).sort((a, b) => a - b);
+        if (secs.length > 0) {
+          const med = secs[Math.floor(secs.length * 0.5)];
+          const p80 = secs[Math.floor(secs.length * 0.8)];
+          document.getElementById("metricJudgeMedian").textContent = `${med}s / ${p80}s`;
+        }
+        const byDfsj = [...scoredTeams].filter(t => t.sf_dfsj).sort((a, b) => b.sf_dfsj.localeCompare(a.sf_dfsj));
+        if (byDfsj[0]) {
+          document.getElementById("metricLastSubmitFoot").textContent =
+            `最近出分: ${byDfsj[0].tdmc} (${formatRelativeTime(byDfsj[0].sf_dfsj)})`;
+        }
+
+        renderWatchlist(teams, scoredTeams);
+        renderMainTable(teams, scoredTeams);
+        renderDistribution(scoredTeams);
+        renderTiming(scoredTeams, secs);
+        renderFeed(scoredTeams);
+      }
+
+      function renderWatchlist(teams, scoredTeams) {
+        const panel = document.getElementById("watchlistPanel");
+        const container = document.getElementById("watchlistCards");
+        if (appState.starred.size === 0) {
+          panel.classList.remove("active");
+          return;
+        }
+        panel.classList.add("active");
+        const starredTeams = teams.filter(t => appState.starred.has(t.csbh));
+        const top1Score = scoredTeams[0]?.sf_score ?? null;
+        const line11Score = scoredTeams[10]?.sf_score ?? null;
+        const line30Score = scoredTeams[29]?.sf_score ?? null;
+
+        container.innerHTML = starredTeams.map(t => {
+          const deltaStr = t.delta_vs_r2 !== null
+            ? (t.delta_vs_r2 > 0 ? `+${t.delta_vs_r2.toFixed(2)}` : t.delta_vs_r2.toFixed(2))
+            : "—";
+          let gapHtml = "";
+          if (t.has_sf_score && top1Score !== null) {
+            const gap1 = (t.sf_score - top1Score).toFixed(2);
+            const gap11 = line11Score !== null ? (t.sf_score - line11Score).toFixed(2) : "—";
+            const gap30 = line30Score !== null ? (t.sf_score - line30Score).toFixed(2) : "—";
+            gapHtml = `<span>距第1名: <b class="mono">${gap1}</b></span>
+                       <span>距第11名(15%): <b class="mono">${gap11 > 0 ? "+" + gap11 : gap11}</b></span>
+                       <span>距第30名(40%): <b class="mono">${gap30 > 0 ? "+" + gap30 : gap30}</b></span>`;
+          } else {
+            gapHtml = `<span class="badge badge-wait">半决赛尚未出分</span>`;
+          }
+          return `
+            <div class="watch-card">
+              <div class="watch-card-top">
+                <div class="watch-card-title">
+                  <span>${t.has_sf_score ? "#" + t.sf_rank : "未交"}</span>
+                  <span>${t.tdmc}</span>
+                  <span class="badge ${t.r2_award === "省赛一等奖" ? "badge-p1" : "badge-p2"}">${t.r2_award === "省赛一等奖" ? "省一" : "省二"}</span>
+                </div>
+                <div class="watch-card-score">${t.has_sf_score ? t.sf_score.toFixed(2) : "—"}</div>
+              </div>
+              <div class="watch-card-meta">
+                <span class="mono">${t.csbh}</span>
+                <span>队员: ${(t.members || []).join("、") || "—"}</span>
+                <span>复赛: <b class="mono">${t.r2_score_str || "—"}</b> (#${t.r2_rank || "—"})</span>
+                <span>较复赛: <b class="mono">${deltaStr}</b></span>
+              </div>
+              <div class="watch-card-meta" style="border-top:1px dashed var(--border);padding-top:4px;">
+                ${gapHtml}
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      function renderMainTable(teams, scoredTeams) {
+        const tbody = document.getElementById("boardTableBody");
+        const q = appState.searchQuery.trim().toLowerCase().split(/\s+/).filter(Boolean);
+
+        let filtered = teams.filter(t => {
+          if (appState.activeTab === "unsubmitted" && t.has_sf_score) return false;
+          if (appState.activeFilter === "scored" && !t.has_sf_score) return false;
+          if (appState.activeFilter === "unsubmitted" && t.has_sf_score) return false;
+          if (appState.activeFilter === "p1" && t.r2_award !== "省赛一等奖") return false;
+          if (appState.activeFilter === "p2" && t.r2_award !== "省赛二等奖") return false;
+          if (appState.activeFilter === "improved" && !(t.delta_vs_r2 !== null && t.delta_vs_r2 > 0)) return false;
+          if (appState.activeFilter === "starred" && !appState.starred.has(t.csbh)) return false;
+
+          if (q.length > 0) {
+            const hay = `${t.tdmc} ${t.csbh} ${(t.members || []).join(" ")} ${t.r2_award}`.toLowerCase();
+            return q.every(kw => hay.includes(kw));
+          }
+          return true;
+        });
+
+        // Sort
+        const sk = appState.sortKey;
+        const dir = appState.sortAsc ? 1 : -1;
+        filtered.sort((a, b) => {
+          if (sk === "starred") {
+            const sa = appState.starred.has(a.csbh) ? 0 : 1;
+            const sb = appState.starred.has(b.csbh) ? 0 : 1;
+            if (sa !== sb) return sa - sb;
+          }
+          let va = a[sk];
+          let vb = b[sk];
+          if (va === null || va === undefined || va === "") return 1;
+          if (vb === null || vb === undefined || vb === "") return -1;
+          if (typeof va === "string") return va.localeCompare(vb) * dir;
+          return (va - vb) * dir;
+        });
+
+        const showCutoffDividers =
+          appState.activeTab === "board" &&
+          (appState.activeFilter === "all" || appState.activeFilter === "scored") &&
+          q.length === 0 &&
+          sk === "sf_rank" &&
+          appState.sortAsc;
+
+        const rowsHtml = [];
+        filtered.forEach(t => {
+          const isStarred = appState.starred.has(t.csbh);
+          const rankClass = t.sf_rank === 1 ? "rank-1" : t.sf_rank === 2 ? "rank-2" : t.sf_rank === 3 ? "rank-3" : "";
+          const rankHtml = t.has_sf_score
+            ? `<span class="rank-badge ${rankClass}">${t.sf_rank}</span>`
+            : `<span class="badge badge-wait">未出分</span>`;
+
+          let deltaHtml = "—";
+          if (t.delta_vs_r2 !== null) {
+            if (t.delta_vs_r2 > 0) {
+              deltaHtml = `<span class="badge badge-up">+${t.delta_vs_r2.toFixed(2)}</span>`;
+            } else if (t.delta_vs_r2 < 0) {
+              deltaHtml = `<span class="badge badge-down">${t.delta_vs_r2.toFixed(2)}</span>`;
+            } else {
+              deltaHtml = `<span class="badge badge-same">0.00 (同分)</span>`;
+            }
+          }
+
+          const awardBadge = t.r2_award === "省赛一等奖"
+            ? `<span class="badge badge-p1">省一 #${t.r2_award_seq}</span>`
+            : `<span class="badge badge-p2">省二 #${t.r2_award_seq}</span>`;
+
+          rowsHtml.push(`
+            <tr class="${isStarred ? "pinned-row" : ""} ${!t.has_sf_score ? "unsubmitted-row" : ""}">
+              <td>
+                <button class="star-btn ${isStarred ? "starred" : ""}" data-csbh="${t.csbh}" title="点击关注/取消关注">
+                  ${isStarred ? "★" : "☆"}
+                </button>
+              </td>
+              <td>${rankHtml}</td>
+              <td>
+                <div class="team-cell">
+                  <span class="team-name">${t.tdmc}</span>
+                  <span class="team-id">${t.csbh}</span>
+                </div>
+              </td>
+              <td class="members-cell">${(t.members || []).join("、") || "—"}</td>
+              <td>${awardBadge}</td>
+              <td class="score-main">${t.has_sf_score ? t.sf_score.toFixed(2) : "—"}</td>
+              <td>${deltaHtml}</td>
+              <td class="mono">${t.r2_score_str || "—"} <span style="color:var(--text-muted);font-size:11.5px;">(#${t.r2_rank || "—"})</span></td>
+              <td class="mono" style="font-size:12px;">
+                ${t.has_sf_score ? `<div>${t.sf_dfsj}</div><div style="color:var(--text-muted);font-size:11px;">${formatRelativeTime(t.sf_dfsj)}</div>` : "—"}
+              </td>
+              <td class="mono">${formatSec(t.sf_judge_sec)}</td>
+            </tr>
+          `);
+
+          if (showCutoffDividers && t.sf_rank === 11) {
+            rowsHtml.push(`<tr class="cutoff-divider"><td colspan="10">▲ 以上为 77 支晋级队前 15% 边界（第 11 名，${t.sf_score.toFixed(2)} 分） ▲</td></tr>`);
+          }
+          if (showCutoffDividers && t.sf_rank === 23) {
+            rowsHtml.push(`<tr class="cutoff-divider"><td colspan="10">▲ 以上为 77 支晋级队前 30% 边界（第 23 名，${t.sf_score.toFixed(2)} 分） ▲</td></tr>`);
+          }
+          if (showCutoffDividers && t.sf_rank === 30) {
+            rowsHtml.push(`<tr class="cutoff-divider"><td colspan="10">▲ 以上为 77 支晋级队前 40% 边界（第 30 名，${t.sf_score.toFixed(2)} 分） ▲</td></tr>`);
+          }
+        });
+
+        tbody.innerHTML = rowsHtml.join("") || `<tr><td colspan="10" style="text-align:center;padding:28px;color:var(--text-muted);">没有匹配的晋级队伍记录</td></tr>`;
+
+        // Bind star buttons
+        tbody.querySelectorAll(".star-btn").forEach(btn => {
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const csbh = btn.getAttribute("data-csbh");
+            if (appState.starred.has(csbh)) {
+              appState.starred.delete(csbh);
+            } else {
+              appState.starred.add(csbh);
+            }
+            saveStarred();
+            renderAll();
+          });
+        });
+      }
+
+      function renderDistribution(scoredTeams) {
+        const tiers = [
+          { label: "Top 10% (冲刺顶尖)", ratio: 0.10 },
+          { label: "Top 15% (一等参考线)", ratio: 0.15 },
+          { label: "Top 25% (前四分之一)", ratio: 0.25 },
+          { label: "Top 30% (核心获奖区)", ratio: 0.30 },
+          { label: "Top 40% (前四成参考线)", ratio: 0.40 },
+          { label: "Top 50% (中位线)", ratio: 0.50 },
+          { label: "Top 80% (完赛覆盖区)", ratio: 0.80 }
+        ];
+        const firstStarred = scoredTeams.find(t => appState.starred.has(t.csbh));
+
+        const tbody = document.getElementById("cutoffTableBody");
+        tbody.innerHTML = tiers.map(tr => {
+          const f77 = Math.max(1, Math.floor(77 * tr.ratio));
+          const c77 = Math.max(1, Math.ceil(77 * tr.ratio));
+          const s77_f = scoredTeams[f77 - 1]?.sf_score;
+          const s77_c = scoredTeams[c77 - 1]?.sf_score;
+
+          const fCur = Math.max(1, Math.floor(scoredTeams.length * tr.ratio));
+          const sCur = scoredTeams[fCur - 1]?.sf_score;
+
+          let diffHtml = "— (请先点 ☆ 关注队伍)";
+          if (firstStarred && s77_f !== undefined) {
+            const d = (firstStarred.sf_score - s77_f).toFixed(2);
+            diffHtml = d >= 0
+              ? `<span class="badge badge-up">${firstStarred.tdmc}: +${d} (领先)</span>`
+              : `<span class="badge badge-down">${firstStarred.tdmc}: ${d} (还差 ${Math.abs(d)})</span>`;
+          }
+
+          return `
+            <tr>
+              <td><b>${tr.label}</b></td>
+              <td class="mono">第 ${f77} / ${c77} 名</td>
+              <td class="mono"><b>${s77_f !== undefined ? s77_f.toFixed(2) : "待出分"}</b> / ${s77_c !== undefined ? s77_c.toFixed(2) : "待出分"}</td>
+              <td class="mono">第 ${fCur} 名 (共${scoredTeams.length}队)</td>
+              <td class="mono"><b>${sCur !== undefined ? sCur.toFixed(2) : "—"}</b></td>
+              <td>${diffHtml}</td>
+            </tr>
+          `;
+        }).join("");
+
+        // Histogram
+        const buckets = [
+          { label: "45.00 分以上", min: 45, max: 999 },
+          { label: "42.00 – 44.99", min: 42, max: 45 },
+          { label: "40.00 – 41.99", min: 40, max: 42 },
+          { label: "38.00 – 39.99", min: 38, max: 40 },
+          { label: "36.00 – 37.99", min: 36, max: 38 },
+          { label: "36.00 分以下", min: -999, max: 36 }
+        ];
+        const maxCount = Math.max(1, ...buckets.map(b => scoredTeams.filter(t => t.sf_score >= b.min && t.sf_score < b.max).length));
+        document.getElementById("distHistogramWrap").innerHTML = buckets.map(b => {
+          const cnt = scoredTeams.filter(t => t.sf_score >= b.min && t.sf_score < b.max).length;
+          const w = Math.round((cnt / maxCount) * 100);
+          return `
+            <div class="dist-bar-row">
+              <span class="mono">${b.label}</span>
+              <div class="dist-bar-track"><div class="dist-bar-fill" style="width:${w}%"></div></div>
+              <span class="mono" style="text-align:right;"><b>${cnt}</b> 队</span>
+            </div>
+          `;
+        }).join("");
+      }
+
+      function renderTiming(scoredTeams, secs) {
+        const tbody = document.getElementById("timingTableBody");
+        const sortedByTime = [...scoredTeams].sort((a, b) => (b.sf_dfsj || "").localeCompare(a.sf_dfsj || ""));
+        tbody.innerHTML = sortedByTime.map(t => `
+          <tr>
+            <td><span class="rank-badge">#${t.sf_rank}</span></td>
+            <td><b>${t.tdmc}</b> <span class="mono" style="color:var(--text-muted);font-size:11px;">(${t.csbh})</span></td>
+            <td class="mono"><b>${t.sf_score.toFixed(2)}</b></td>
+            <td class="mono">${t.sf_tjsj || "—"}</td>
+            <td class="mono">${t.sf_dfsj || "—"} <span style="color:var(--text-muted);font-size:11px;">(${formatRelativeTime(t.sf_dfsj)})</span></td>
+            <td class="mono"><span class="badge badge-same">${formatSec(t.sf_judge_sec)}</span></td>
+          </tr>
+        `).join("");
+
+        // Update predictor
+        const updatePredict = () => {
+          const val = document.getElementById("predictInputTime").value;
+          if (!val || secs.length === 0) return;
+          const [hh, mm, ss] = val.split(":").map(Number);
+          const base = new Date();
+          base.setHours(hh || 0, mm || 0, ss || 0, 0);
+          const med = secs[Math.floor(secs.length * 0.5)];
+          const p20 = secs[Math.floor(secs.length * 0.2)];
+          const p80 = secs[Math.floor(secs.length * 0.8)];
+          const fmt = (d) => d.toLocaleTimeString("zh-CN", { hour12: false });
+          const dMed = new Date(base.getTime() + med * 1000);
+          const dP20 = new Date(base.getTime() + p20 * 1000);
+          const dP80 = new Date(base.getTime() + p80 * 1000);
+          document.getElementById("predictResultText").textContent =
+            `预计出分时刻: ${fmt(dMed)} (80% 区间: ${fmt(dP20)} ~ ${fmt(dP80)}，中位耗时 ${med}s)`;
+        };
+
+        const timeInput = document.getElementById("predictInputTime");
+        if (!timeInput.value) {
+          timeInput.value = new Date().toLocaleTimeString("zh-CN", { hour12: false });
+        }
+        timeInput.onchange = updatePredict;
+        document.getElementById("predictUseNowBtn").onclick = () => {
+          timeInput.value = new Date().toLocaleTimeString("zh-CN", { hour12: false });
+          updatePredict();
+        };
+        updatePredict();
+      }
+
+      function renderFeed(scoredTeams) {
+        const listEl = document.getElementById("feedList");
+        const filterVal = appState.feedFilter;
+        const nowMs = Date.now();
+
+        let items = [...scoredTeams]
+          .filter(t => t.sf_dfsj)
+          .sort((a, b) => b.sf_dfsj.localeCompare(a.sf_dfsj));
+
+        if (filterVal === "starred") {
+          items = items.filter(t => appState.starred.has(t.csbh));
+        } else {
+          const hrs = Number(filterVal);
+          if (hrs > 0) {
+            items = items.filter(t => {
+              const dt = new Date(t.sf_dfsj.replace(" ", "T") + "+08:00");
+              return !isNaN(dt) && (nowMs - dt.getTime()) <= hrs * 3600 * 1000;
+            });
+          }
+        }
+
+        document.getElementById("feedCountBadge").textContent = items.length;
+        listEl.innerHTML = items.map(t => {
+          let dBadge = "";
+          if (t.delta_vs_r2 !== null) {
+            dBadge = t.delta_vs_r2 > 0
+              ? `<span class="badge badge-up">较复赛 +${t.delta_vs_r2.toFixed(2)}</span>`
+              : t.delta_vs_r2 < 0
+              ? `<span class="badge badge-down">较复赛 ${t.delta_vs_r2.toFixed(2)}</span>`
+              : `<span class="badge badge-same">复赛同分</span>`;
+          }
+          return `
+            <div class="feed-item">
+              <div class="feed-item-top">
+                <span class="feed-team">#${t.sf_rank} ${t.tdmc}</span>
+                <span class="feed-time">${formatRelativeTime(t.sf_dfsj)}</span>
+              </div>
+              <div class="feed-item-bottom">
+                <span>得分: <b class="mono" style="color:var(--primary);font-size:13.5px;">${t.sf_score.toFixed(2)}</b> ${dBadge}</span>
+                <span class="mono">耗时 ${formatSec(t.sf_judge_sec)}</span>
+              </div>
+            </div>
+          `;
+        }).join("") || `<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:12.5px;">该时间段内暂无出分记录</div>`;
+      }
+
+      // Event Listeners
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          appState.activeTab = btn.getAttribute("data-tab");
+
+          document.getElementById("viewTableSection").classList.toggle("hidden", appState.activeTab !== "board" && appState.activeTab !== "unsubmitted");
+          document.getElementById("viewDistributionSection").classList.toggle("hidden", appState.activeTab !== "distribution");
+          document.getElementById("viewTimingSection").classList.toggle("hidden", appState.activeTab !== "timing");
+          renderAll();
+        });
+      });
+
+      document.querySelectorAll("#filterPills .pill").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#filterPills .pill").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          appState.activeFilter = btn.getAttribute("data-filter");
+          renderAll();
+        });
+      });
+
+      document.querySelectorAll("#feedFilterBar .pill").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#feedFilterBar .pill").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          appState.feedFilter = btn.getAttribute("data-feed-hours");
+          renderAll();
+        });
+      });
+
+      document.getElementById("searchInput").addEventListener("input", (e) => {
+        appState.searchQuery = e.target.value;
+        renderAll();
+      });
+
+      document.querySelectorAll("th[data-sort]").forEach(th => {
+        th.addEventListener("click", () => {
+          const key = th.getAttribute("data-sort");
+          if (appState.sortKey === key) {
+            appState.sortAsc = !appState.sortAsc;
+          } else {
+            appState.sortKey = key;
+            appState.sortAsc = key === "sf_rank" || key === "r2_award_seq" || key === "tdmc";
+          }
+          renderAll();
+        });
+      });
+
+      document.getElementById("clearWatchlistBtn").addEventListener("click", () => {
+        appState.starred.clear();
+        saveStarred();
+        renderAll();
+      });
+
+      document.getElementById("refreshNowBtn").addEventListener("click", () => {
+        refreshLiveFromOfficialApi();
+      });
+
+      function setupAutoRefresh() {
+        if (appState.autoRefreshTimer) clearInterval(appState.autoRefreshTimer);
+        const sec = Number(document.getElementById("autoRefreshSelect").value);
+        if (sec > 0) {
+          appState.autoRefreshTimer = setInterval(refreshLiveFromOfficialApi, sec * 1000);
+        }
+      }
+      document.getElementById("autoRefreshSelect").addEventListener("change", setupAutoRefresh);
+
+      // Export CSV
+      document.getElementById("exportCsvBtn").addEventListener("click", () => {
+        if (!appState.snapshot) return;
+        const headers = ["半决赛名次", "参赛编号", "队伍名称", "团队成员", "复赛获奖等级", "复赛名单序号", "半决赛得分", "较复赛涨跌", "复赛得分", "复赛排名", "半决赛最后提交时间", "半决赛打分时间", "评测耗时(秒)"];
+        const rows = appState.snapshot.teams.map(t => [
+          t.has_sf_score ? t.sf_rank : "未出分",
+          t.csbh,
+          `"${(t.tdmc || "").replace(/"/g, '""')}"`,
+          `"${(t.members || []).join("、")}"`,
+          t.r2_award,
+          t.r2_award_seq || "",
+          t.sf_score_str || "",
+          t.delta_vs_r2 !== null ? t.delta_vs_r2.toFixed(2) : "",
+          t.r2_score_str || "",
+          t.r2_rank || "",
+          t.sf_tjsj || "",
+          t.sf_dfsj || "",
+          t.sf_judge_sec !== null ? t.sf_judge_sec : ""
+        ]);
+        const csvContent = "\uFEFF" + [headers.join(","), ...rows.map(r => r.join(","))].join("\r\n");
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `半决赛排行榜_77支晋级队_${appState.snapshot.snapshot_id || "live"}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+
+      // Initial render + immediate live API refresh
+      if (appState.snapshot) {
+        renderAll();
+      }
+      refreshLiveFromOfficialApi();
+      setupAutoRefresh();
+    })();
+  </script>
+</body>
+</html>
