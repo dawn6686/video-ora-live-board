@@ -1,9 +1,9 @@
 {
   "competition": "基于视频大模型的通用视频高光剪辑",
   "stage": "半决赛（国赛晋级池 77 支队伍）",
-  "snapshot_id": "20261108_174813",
-  "captured_at": "2026-11-08T17:48:13+08:00",
-  "platform_create_time": "2026-11-08 17:48:13",
+  "snapshot_id": "20261108_180149",
+  "captured_at": "2026-11-08T18:01:49+08:00",
+  "platform_create_time": "2026-11-08 18:01:51",
   "api_url": "https://jluat-smart-app-api.yuntu.cn/third/jsphb",
   "source_url": "https://reg.aicomp.cn/special/phb/detail?id=4843470003011457070&rwId=4863942083800600605&stbh=4863942083800600619",
   "request_params": {
@@ -214,8 +214,8 @@
       "r2_score_str": "43.19",
       "r2_tjsj": "2026-10-22 18:55:35",
       "delta_vs_r2": 1.8,
-      "delta_vs_prev": 0.14,
-      "rank_delta_vs_prev": 2
+      "delta_vs_prev": 0.0,
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-91859606",
@@ -239,7 +239,7 @@
       "r2_tjsj": "2026-10-24 11:38:56",
       "delta_vs_r2": 4.14,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -1
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-36628101",
@@ -262,7 +262,7 @@
       "r2_tjsj": "2026-10-14 00:03:40",
       "delta_vs_r2": 2.79,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -1
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-26400097",
@@ -336,7 +336,7 @@
       "r2_score_str": "42.55",
       "r2_tjsj": "2026-10-21 15:16:14",
       "delta_vs_r2": 1.98,
-      "delta_vs_prev": 0.01,
+      "delta_vs_prev": 0.0,
       "rank_delta_vs_prev": 0
     },
     {
@@ -385,8 +385,8 @@
       "r2_score_str": "43.61",
       "r2_tjsj": "2026-10-24 01:04:52",
       "delta_vs_r2": 0.53,
-      "delta_vs_prev": 1.23,
-      "rank_delta_vs_prev": 6
+      "delta_vs_prev": 0.0,
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-79547015",
@@ -411,32 +411,7 @@
       "r2_tjsj": "2026-10-24 03:13:54",
       "delta_vs_r2": -0.01,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -1
-    },
-    {
-      "csbh": "AIC-2026-37717297",
-      "tdmc": "H200畅饮",
-      "members": [
-        "何添鸿",
-        "李源",
-        "王明翔"
-      ],
-      "r2_award": "省赛一等奖",
-      "r2_award_seq": 28,
-      "has_sf_score": true,
-      "sf_rank": 17,
-      "sf_score": 43.5,
-      "sf_score_str": "43.50",
-      "sf_tjsj": "2026-11-08 01:37:58",
-      "sf_dfsj": "2026-11-08 01:38:56",
-      "sf_judge_sec": 58,
-      "r2_rank": 28,
-      "r2_score": 42.28,
-      "r2_score_str": "42.28",
-      "r2_tjsj": "2026-10-24 10:20:02",
-      "delta_vs_r2": 1.22,
-      "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -1
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-25759499",
@@ -449,17 +424,42 @@
       "r2_award": "省赛二等奖",
       "r2_award_seq": 37,
       "has_sf_score": true,
-      "sf_rank": 18,
-      "sf_score": 43.43,
-      "sf_score_str": "43.43",
-      "sf_tjsj": "2026-11-08 13:27:37",
-      "sf_dfsj": "2026-11-08 13:27:55",
-      "sf_judge_sec": 18,
+      "sf_rank": 17,
+      "sf_score": 43.59,
+      "sf_score_str": "43.59",
+      "sf_tjsj": "2026-11-08 17:54:49",
+      "sf_dfsj": "2026-11-08 17:55:27",
+      "sf_judge_sec": 38,
       "r2_rank": 37,
       "r2_score": 41.28,
       "r2_score_str": "41.28",
       "r2_tjsj": "2026-10-24 11:15:27",
-      "delta_vs_r2": 2.15,
+      "delta_vs_r2": 2.31,
+      "delta_vs_prev": 0.16,
+      "rank_delta_vs_prev": 1
+    },
+    {
+      "csbh": "AIC-2026-37717297",
+      "tdmc": "H200畅饮",
+      "members": [
+        "何添鸿",
+        "李源",
+        "王明翔"
+      ],
+      "r2_award": "省赛一等奖",
+      "r2_award_seq": 28,
+      "has_sf_score": true,
+      "sf_rank": 18,
+      "sf_score": 43.5,
+      "sf_score_str": "43.50",
+      "sf_tjsj": "2026-11-08 01:37:58",
+      "sf_dfsj": "2026-11-08 01:38:56",
+      "sf_judge_sec": 58,
+      "r2_rank": 28,
+      "r2_score": 42.28,
+      "r2_score_str": "42.28",
+      "r2_tjsj": "2026-10-24 10:20:02",
+      "delta_vs_r2": 1.22,
       "delta_vs_prev": 0.0,
       "rank_delta_vs_prev": -1
     },
@@ -481,10 +481,10 @@
       "r2_rank": 14,
       "r2_score": 43.34,
       "r2_score_str": "43.34",
-      "r2_tjsj": "2026-10-24 08:55:21",
+      "r2_tjsj": "2026-10-23 12:20:58",
       "delta_vs_r2": 0.09,
-      "delta_vs_prev": null,
-      "rank_delta_vs_prev": null
+      "delta_vs_prev": 0.0,
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-25755345",
@@ -509,7 +509,7 @@
       "r2_tjsj": "2026-10-22 01:18:48",
       "delta_vs_r2": 2.78,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -2
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-33569378",
@@ -531,8 +531,8 @@
       "r2_score_str": "42.46",
       "r2_tjsj": "2026-10-24 11:28:38",
       "delta_vs_r2": 0.75,
-      "delta_vs_prev": null,
-      "rank_delta_vs_prev": null
+      "delta_vs_prev": 0.0,
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-61672318",
@@ -554,8 +554,8 @@
       "r2_score_str": "42.54",
       "r2_tjsj": "2026-10-24 10:21:01",
       "delta_vs_r2": 0.5,
-      "delta_vs_prev": null,
-      "rank_delta_vs_prev": null
+      "delta_vs_prev": 0.0,
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-58012441",
@@ -578,7 +578,7 @@
       "r2_tjsj": "2026-10-24 10:45:02",
       "delta_vs_r2": 1.38,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -4
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-29124269",
@@ -603,7 +603,7 @@
       "r2_tjsj": "2026-10-24 09:23:39",
       "delta_vs_r2": 2.33,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -4
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-34469459",
@@ -626,8 +626,8 @@
       "r2_score_str": "41.33",
       "r2_tjsj": "2026-10-24 11:47:55",
       "delta_vs_r2": 1.47,
-      "delta_vs_prev": null,
-      "rank_delta_vs_prev": null
+      "delta_vs_prev": 0.0,
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-93923535",
@@ -650,7 +650,7 @@
       "r2_tjsj": "2026-10-23 09:51:05",
       "delta_vs_r2": -0.37,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -4
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-14837417",
@@ -673,7 +673,7 @@
       "r2_tjsj": "2026-10-24 09:40:58",
       "delta_vs_r2": 3.8,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -4
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-55278832",
@@ -697,8 +697,8 @@
       "r2_score_str": "45.51",
       "r2_tjsj": "2026-10-07 20:26:50",
       "delta_vs_r2": -3.02,
-      "delta_vs_prev": null,
-      "rank_delta_vs_prev": null
+      "delta_vs_prev": 0.0,
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-60007889",
@@ -723,7 +723,7 @@
       "r2_tjsj": "2026-10-23 09:59:38",
       "delta_vs_r2": 2.6,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -5
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-37773935",
@@ -746,7 +746,7 @@
       "r2_tjsj": "2026-10-24 00:23:41",
       "delta_vs_r2": -0.59,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -5
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-33719317",
@@ -771,7 +771,7 @@
       "r2_tjsj": "2026-10-24 00:08:07",
       "delta_vs_r2": 1.93,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -5
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-11843816",
@@ -796,7 +796,7 @@
       "r2_tjsj": "2026-10-24 07:26:27",
       "delta_vs_r2": 2.87,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -5
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-44578624",
@@ -820,8 +820,8 @@
       "r2_score_str": "40.42",
       "r2_tjsj": "2026-10-22 17:02:17",
       "delta_vs_r2": 1.37,
-      "delta_vs_prev": null,
-      "rank_delta_vs_prev": null
+      "delta_vs_prev": 0.0,
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-35530029",
@@ -845,7 +845,7 @@
       "r2_tjsj": "2026-10-23 08:55:44",
       "delta_vs_r2": 1.42,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -6
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-33390117",
@@ -870,7 +870,7 @@
       "r2_tjsj": "2026-10-20 19:09:33",
       "delta_vs_r2": 1.31,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -6
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-65660125",
@@ -893,7 +893,7 @@
       "r2_tjsj": "2026-10-24 11:11:38",
       "delta_vs_r2": 1.21,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -6
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-43746508",
@@ -918,7 +918,7 @@
       "r2_tjsj": "2026-10-07 21:23:25",
       "delta_vs_r2": 0.59,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -6
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-29218458",
@@ -943,7 +943,7 @@
       "r2_tjsj": "2026-10-23 15:45:51",
       "delta_vs_r2": 1.64,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -6
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-63700415",
@@ -967,7 +967,7 @@
       "r2_tjsj": "2026-10-24 11:15:35",
       "delta_vs_r2": 1.11,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -6
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-32865027",
@@ -990,7 +990,7 @@
       "r2_tjsj": "2026-10-24 11:15:26",
       "delta_vs_r2": 1.8,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -6
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-69536545",
@@ -1014,8 +1014,8 @@
       "r2_score_str": "39.17",
       "r2_tjsj": "2026-10-20 22:58:30",
       "delta_vs_r2": 1.37,
-      "delta_vs_prev": null,
-      "rank_delta_vs_prev": null
+      "delta_vs_prev": 0.0,
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-99764881",
@@ -1040,7 +1040,7 @@
       "r2_tjsj": "2026-10-21 00:37:17",
       "delta_vs_r2": 0.0,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -7
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-81248839",
@@ -1065,7 +1065,7 @@
       "r2_tjsj": "2026-10-24 11:29:20",
       "delta_vs_r2": -0.23,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -7
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-49872720",
@@ -1090,7 +1090,7 @@
       "r2_tjsj": "2026-10-21 10:58:32",
       "delta_vs_r2": 1.01,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -7
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-17417427",
@@ -1113,7 +1113,7 @@
       "r2_tjsj": "2026-10-24 00:40:20",
       "delta_vs_r2": 0.84,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -7
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-99949568",
@@ -1138,7 +1138,7 @@
       "r2_tjsj": "2026-10-24 00:00:18",
       "delta_vs_r2": -2.68,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -7
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-76604525",
@@ -1163,7 +1163,7 @@
       "r2_tjsj": "2026-10-23 02:21:51",
       "delta_vs_r2": 0.34,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -7
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-15862101",
@@ -1187,8 +1187,32 @@
       "r2_score_str": "38.90",
       "r2_tjsj": "2026-10-23 21:06:13",
       "delta_vs_r2": -0.2,
-      "delta_vs_prev": 0.28,
-      "rank_delta_vs_prev": -5
+      "delta_vs_prev": 0.0,
+      "rank_delta_vs_prev": 0
+    },
+    {
+      "csbh": "AIC-2026-87270923",
+      "tdmc": "逐一队",
+      "members": [
+        "李妍慧",
+        "陈子烨"
+      ],
+      "r2_award": "省赛二等奖",
+      "r2_award_seq": 48,
+      "has_sf_score": true,
+      "sf_rank": 49,
+      "sf_score": 38.57,
+      "sf_score_str": "38.57",
+      "sf_tjsj": "2026-11-08 15:36:38",
+      "sf_dfsj": "2026-11-08 15:37:25",
+      "sf_judge_sec": 47,
+      "r2_rank": 50,
+      "r2_score": 40.38,
+      "r2_score_str": "40.38",
+      "r2_tjsj": "2026-10-24 11:50:54",
+      "delta_vs_r2": -1.81,
+      "delta_vs_prev": 0.0,
+      "rank_delta_vs_prev": 1
     },
     {
       "csbh": "AIC-2026-88812567",
@@ -1201,7 +1225,7 @@
       "r2_award": "省赛二等奖",
       "r2_award_seq": 49,
       "has_sf_score": true,
-      "sf_rank": 49,
+      "sf_rank": 50,
       "sf_score": 38.57,
       "sf_score_str": "38.57",
       "sf_tjsj": "2026-11-08 14:47:20",
@@ -1213,31 +1237,7 @@
       "r2_tjsj": "2026-10-24 11:19:02",
       "delta_vs_r2": -1.81,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -8
-    },
-    {
-      "csbh": "AIC-2026-87270923",
-      "tdmc": "逐一队",
-      "members": [
-        "李妍慧",
-        "陈子烨"
-      ],
-      "r2_award": "省赛二等奖",
-      "r2_award_seq": 48,
-      "has_sf_score": true,
-      "sf_rank": 50,
-      "sf_score": 38.57,
-      "sf_score_str": "38.57",
-      "sf_tjsj": "2026-11-08 15:36:38",
-      "sf_dfsj": "2026-11-08 15:37:25",
-      "sf_judge_sec": 47,
-      "r2_rank": 50,
-      "r2_score": 40.38,
-      "r2_score_str": "40.38",
-      "r2_tjsj": "2026-10-24 11:50:54",
-      "delta_vs_r2": -1.81,
-      "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -8
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-69612453",
@@ -1262,7 +1262,7 @@
       "r2_tjsj": "2026-10-18 15:09:48",
       "delta_vs_r2": -0.53,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -7
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-14379556",
@@ -1287,7 +1287,7 @@
       "r2_tjsj": "2026-10-24 07:22:32",
       "delta_vs_r2": -1.03,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -7
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-40487261",
@@ -1312,7 +1312,7 @@
       "r2_tjsj": "2026-10-24 11:26:38",
       "delta_vs_r2": -1.1,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -7
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-14980607",
@@ -1335,7 +1335,7 @@
       "r2_tjsj": "2026-10-24 00:46:15",
       "delta_vs_r2": -2.43,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -7
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-53509421",
@@ -1358,7 +1358,7 @@
       "r2_tjsj": "2026-10-03 20:15:00",
       "delta_vs_r2": -6.68,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -7
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-37635525",
@@ -1383,7 +1383,7 @@
       "r2_tjsj": "2026-10-20 07:14:33",
       "delta_vs_r2": -6.94,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": -7
+      "rank_delta_vs_prev": 0
     },
     {
       "csbh": "AIC-2026-95222683",
@@ -2047,6 +2047,20 @@
       "tjsj": "2026-11-08 15:58:14",
       "dfsj": "2026-11-08 15:58:37",
       "judge_sec": 23
+    },
+    {
+      "type": "score_update",
+      "detected_at": "2026-11-08T18:01:49+08:00",
+      "csbh": "AIC-2026-25759499",
+      "tdmc": "慧眼",
+      "new_score": "43.59",
+      "prev_score": "43.43",
+      "delta": 0.16,
+      "new_rank": 17,
+      "prev_rank": 18,
+      "tjsj": "2026-11-08 17:54:49",
+      "dfsj": "2026-11-08 17:55:27",
+      "judge_sec": 38
     }
   ],
   "history_snapshots_meta": [
@@ -2059,6 +2073,12 @@
     {
       "snapshot_id": "20261108_174813",
       "captured_at": "2026-11-08T17:48:13+08:00",
+      "scored_count": 56,
+      "top1_score": "48.76"
+    },
+    {
+      "snapshot_id": "20261108_180149",
+      "captured_at": "2026-11-08T18:01:49+08:00",
       "scored_count": 56,
       "top1_score": "48.76"
     }
