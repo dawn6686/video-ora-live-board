@@ -1,9 +1,9 @@
 window.__INITIAL_SNAPSHOT__ = {
   "competition": "基于视频大模型的通用视频高光剪辑",
   "stage": "半决赛（国赛晋级池 77 支队伍）",
-  "snapshot_id": "20261108_181027",
-  "captured_at": "2026-11-08T18:10:27+08:00",
-  "platform_create_time": "2026-11-08 18:10:29",
+  "snapshot_id": "20261108_190744",
+  "captured_at": "2026-11-08T19:07:44+08:00",
+  "platform_create_time": "2026-11-08 19:07:46",
   "api_url": "https://jluat-smart-app-api.yuntu.cn/third/jsphb",
   "source_url": "https://reg.aicomp.cn/special/phb/detail?id=4843470003011457070&rwId=4863942083800600605&stbh=4863942083800600619",
   "request_params": {
@@ -18,8 +18,8 @@ window.__INITIAL_SNAPSHOT__ = {
     "total_qualified": 77,
     "provincial_first_qualified": 29,
     "provincial_second_qualified": 48,
-    "sf_scored_count": 56,
-    "sf_unsubmitted_count": 21,
+    "sf_scored_count": 57,
+    "sf_unsubmitted_count": 20,
     "top1_team": "一千万参数内最好的视频剪辑模型",
     "top1_score": "48.76"
   },
@@ -115,7 +115,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_rank": 24,
       "r2_score": 42.51,
       "r2_score_str": "42.51",
-      "r2_tjsj": "2026-10-24 07:58:49",
+      "r2_tjsj": "2026-10-24 09:48:01",
       "delta_vs_r2": 3.6,
       "delta_vs_prev": 0.0,
       "rank_delta_vs_prev": 0
@@ -188,7 +188,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_rank": 2,
       "r2_score": 46.75,
       "r2_score_str": "46.75",
-      "r2_tjsj": "2026-10-19 08:08:33",
+      "r2_tjsj": "2026-10-19 09:10:02",
       "delta_vs_r2": -1.46,
       "delta_vs_prev": 0.0,
       "rank_delta_vs_prev": 0
@@ -360,7 +360,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_score_str": "39.79",
       "r2_tjsj": "2026-10-24 10:22:02",
       "delta_vs_r2": 4.63,
-      "delta_vs_prev": 0.06,
+      "delta_vs_prev": 0.0,
       "rank_delta_vs_prev": 0
     },
     {
@@ -481,7 +481,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_rank": 14,
       "r2_score": 43.34,
       "r2_score_str": "43.34",
-      "r2_tjsj": "2026-10-23 12:20:58",
+      "r2_tjsj": "2026-10-24 08:55:21",
       "delta_vs_r2": 0.09,
       "delta_vs_prev": 0.0,
       "rank_delta_vs_prev": 0
@@ -581,6 +581,30 @@ window.__INITIAL_SNAPSHOT__ = {
       "rank_delta_vs_prev": 0
     },
     {
+      "csbh": "AIC-2026-96536018",
+      "tdmc": "LinkW",
+      "members": [
+        "汪俊军",
+        "陈浩"
+      ],
+      "r2_award": "省赛二等奖",
+      "r2_award_seq": 31,
+      "has_sf_score": true,
+      "sf_rank": 24,
+      "sf_score": 43.01,
+      "sf_score_str": "43.01",
+      "sf_tjsj": "2026-11-08 18:52:44",
+      "sf_dfsj": "2026-11-08 18:52:54",
+      "sf_judge_sec": 10,
+      "r2_rank": 31,
+      "r2_score": 42.06,
+      "r2_score_str": "42.06",
+      "r2_tjsj": "2026-10-24 01:50:03",
+      "delta_vs_r2": 0.95,
+      "delta_vs_prev": null,
+      "rank_delta_vs_prev": null
+    },
+    {
       "csbh": "AIC-2026-29124269",
       "tdmc": "我说的都对",
       "members": [
@@ -591,7 +615,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 43,
       "has_sf_score": true,
-      "sf_rank": 24,
+      "sf_rank": 25,
       "sf_score": 42.93,
       "sf_score_str": "42.93",
       "sf_tjsj": "2026-11-08 12:03:12",
@@ -603,7 +627,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-24 09:23:39",
       "delta_vs_r2": 2.33,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-34469459",
@@ -615,7 +639,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 36,
       "has_sf_score": true,
-      "sf_rank": 25,
+      "sf_rank": 26,
       "sf_score": 42.8,
       "sf_score_str": "42.80",
       "sf_tjsj": "2026-11-08 16:59:59",
@@ -627,7 +651,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-24 11:47:55",
       "delta_vs_r2": 1.47,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-93923535",
@@ -638,7 +662,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛一等奖",
       "r2_award_seq": 16,
       "has_sf_score": true,
-      "sf_rank": 26,
+      "sf_rank": 27,
       "sf_score": 42.71,
       "sf_score_str": "42.71",
       "sf_tjsj": "2026-11-08 10:27:47",
@@ -650,7 +674,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-23 09:51:05",
       "delta_vs_r2": -0.37,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-14837417",
@@ -661,7 +685,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 74,
       "has_sf_score": true,
-      "sf_rank": 27,
+      "sf_rank": 28,
       "sf_score": 42.68,
       "sf_score_str": "42.68",
       "sf_tjsj": "2026-11-08 09:42:58",
@@ -670,10 +694,10 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_rank": 75,
       "r2_score": 38.88,
       "r2_score_str": "38.88",
-      "r2_tjsj": "2026-10-24 09:40:58",
+      "r2_tjsj": "2026-10-24 09:08:45",
       "delta_vs_r2": 3.8,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-55278832",
@@ -686,7 +710,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛一等奖",
       "r2_award_seq": 5,
       "has_sf_score": true,
-      "sf_rank": 28,
+      "sf_rank": 29,
       "sf_score": 42.49,
       "sf_score_str": "42.49",
       "sf_tjsj": "2026-11-08 17:11:19",
@@ -698,7 +722,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-07 20:26:50",
       "delta_vs_r2": -3.02,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-60007889",
@@ -711,7 +735,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 59,
       "has_sf_score": true,
-      "sf_rank": 29,
+      "sf_rank": 30,
       "sf_score": 42.48,
       "sf_score_str": "42.48",
       "sf_tjsj": "2026-11-08 14:27:52",
@@ -723,7 +747,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-23 09:59:38",
       "delta_vs_r2": 2.6,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-37773935",
@@ -734,7 +758,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛一等奖",
       "r2_award_seq": 17,
       "has_sf_score": true,
-      "sf_rank": 30,
+      "sf_rank": 31,
       "sf_score": 42.19,
       "sf_score_str": "42.19",
       "sf_tjsj": "2026-11-08 12:58:56",
@@ -746,7 +770,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-24 00:23:41",
       "delta_vs_r2": -0.59,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-33719317",
@@ -759,7 +783,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 57,
       "has_sf_score": true,
-      "sf_rank": 31,
+      "sf_rank": 32,
       "sf_score": 42.09,
       "sf_score_str": "42.09",
       "sf_tjsj": "2026-11-08 12:24:25",
@@ -771,7 +795,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-24 00:08:07",
       "delta_vs_r2": 1.93,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-11843816",
@@ -784,7 +808,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 69,
       "has_sf_score": true,
-      "sf_rank": 32,
+      "sf_rank": 33,
       "sf_score": 41.83,
       "sf_score_str": "41.83",
       "sf_tjsj": "2026-11-08 15:05:02",
@@ -796,7 +820,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-24 07:26:27",
       "delta_vs_r2": 2.87,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-44578624",
@@ -809,7 +833,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 47,
       "has_sf_score": true,
-      "sf_rank": 33,
+      "sf_rank": 34,
       "sf_score": 41.79,
       "sf_score_str": "41.79",
       "sf_tjsj": "2026-11-08 17:28:29",
@@ -821,7 +845,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-22 17:02:17",
       "delta_vs_r2": 1.37,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-35530029",
@@ -833,7 +857,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 53,
       "has_sf_score": true,
-      "sf_rank": 34,
+      "sf_rank": 35,
       "sf_score": 41.68,
       "sf_score_str": "41.68",
       "sf_tjsj": "2026-11-08 06:57:39",
@@ -845,7 +869,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-23 08:55:44",
       "delta_vs_r2": 1.42,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-33390117",
@@ -858,7 +882,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 54,
       "has_sf_score": true,
-      "sf_rank": 35,
+      "sf_rank": 36,
       "sf_score": 41.56,
       "sf_score_str": "41.56",
       "sf_tjsj": "2026-11-08 00:13:43",
@@ -870,7 +894,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-20 19:09:33",
       "delta_vs_r2": 1.31,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-65660125",
@@ -881,7 +905,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 58,
       "has_sf_score": true,
-      "sf_rank": 36,
+      "sf_rank": 37,
       "sf_score": 41.12,
       "sf_score_str": "41.12",
       "sf_tjsj": "2026-11-08 10:17:46",
@@ -893,7 +917,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-24 11:11:38",
       "delta_vs_r2": 1.21,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-43746508",
@@ -906,7 +930,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 50,
       "has_sf_score": true,
-      "sf_rank": 37,
+      "sf_rank": 38,
       "sf_score": 40.93,
       "sf_score_str": "40.93",
       "sf_tjsj": "2026-11-08 09:05:30",
@@ -918,7 +942,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-07 21:23:25",
       "delta_vs_r2": 0.59,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-29218458",
@@ -931,7 +955,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 63,
       "has_sf_score": true,
-      "sf_rank": 38,
+      "sf_rank": 39,
       "sf_score": 40.92,
       "sf_score_str": "40.92",
       "sf_tjsj": "2026-11-08 15:11:24",
@@ -943,7 +967,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-23 15:45:51",
       "delta_vs_r2": 1.64,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-63700415",
@@ -955,7 +979,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 61,
       "has_sf_score": true,
-      "sf_rank": 39,
+      "sf_rank": 40,
       "sf_score": 40.82,
       "sf_score_str": "40.82",
       "sf_tjsj": "2026-11-08 13:06:57",
@@ -967,7 +991,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-24 11:15:35",
       "delta_vs_r2": 1.11,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-32865027",
@@ -978,7 +1002,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 75,
       "has_sf_score": true,
-      "sf_rank": 40,
+      "sf_rank": 41,
       "sf_score": 40.67,
       "sf_score_str": "40.67",
       "sf_tjsj": "2026-11-08 10:54:53",
@@ -990,7 +1014,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-24 11:15:26",
       "delta_vs_r2": 1.8,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-69536545",
@@ -1003,7 +1027,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 64,
       "has_sf_score": true,
-      "sf_rank": 41,
+      "sf_rank": 42,
       "sf_score": 40.54,
       "sf_score_str": "40.54",
       "sf_tjsj": "2026-11-08 17:39:45",
@@ -1012,10 +1036,10 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_rank": 65,
       "r2_score": 39.17,
       "r2_score_str": "39.17",
-      "r2_tjsj": "2026-10-20 22:58:30",
+      "r2_tjsj": "2026-10-18 22:33:41",
       "delta_vs_r2": 1.37,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-99764881",
@@ -1028,7 +1052,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 51,
       "has_sf_score": true,
-      "sf_rank": 42,
+      "sf_rank": 43,
       "sf_score": 40.32,
       "sf_score_str": "40.32",
       "sf_tjsj": "2026-11-08 12:20:50",
@@ -1040,7 +1064,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-21 00:37:17",
       "delta_vs_r2": 0.0,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-81248839",
@@ -1053,7 +1077,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 52,
       "has_sf_score": true,
-      "sf_rank": 43,
+      "sf_rank": 44,
       "sf_score": 40.04,
       "sf_score_str": "40.04",
       "sf_tjsj": "2026-11-08 10:34:00",
@@ -1065,7 +1089,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-24 11:29:20",
       "delta_vs_r2": -0.23,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-49872720",
@@ -1078,7 +1102,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 67,
       "has_sf_score": true,
-      "sf_rank": 44,
+      "sf_rank": 45,
       "sf_score": 40.0,
       "sf_score_str": "40.00",
       "sf_tjsj": "2026-11-08 15:23:37",
@@ -1090,7 +1114,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-21 10:58:32",
       "delta_vs_r2": 1.01,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-17417427",
@@ -1101,7 +1125,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 71,
       "has_sf_score": true,
-      "sf_rank": 45,
+      "sf_rank": 46,
       "sf_score": 39.76,
       "sf_score_str": "39.76",
       "sf_tjsj": "2026-11-08 00:53:59",
@@ -1113,7 +1137,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-24 00:40:20",
       "delta_vs_r2": 0.84,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-99949568",
@@ -1126,7 +1150,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛一等奖",
       "r2_award_seq": 27,
       "has_sf_score": true,
-      "sf_rank": 46,
+      "sf_rank": 47,
       "sf_score": 39.72,
       "sf_score_str": "39.72",
       "sf_tjsj": "2026-11-08 09:58:31",
@@ -1135,10 +1159,10 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_rank": 27,
       "r2_score": 42.4,
       "r2_score_str": "42.40",
-      "r2_tjsj": "2026-10-24 00:00:18",
+      "r2_tjsj": "2026-10-24 00:14:15",
       "delta_vs_r2": -2.68,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-76604525",
@@ -1151,7 +1175,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 66,
       "has_sf_score": true,
-      "sf_rank": 47,
+      "sf_rank": 48,
       "sf_score": 39.35,
       "sf_score_str": "39.35",
       "sf_tjsj": "2026-11-08 00:34:16",
@@ -1163,7 +1187,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-23 02:21:51",
       "delta_vs_r2": 0.34,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-15862101",
@@ -1176,7 +1200,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 73,
       "has_sf_score": true,
-      "sf_rank": 48,
+      "sf_rank": 49,
       "sf_score": 38.7,
       "sf_score_str": "38.70",
       "sf_tjsj": "2026-11-08 15:58:14",
@@ -1188,7 +1212,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-23 21:06:13",
       "delta_vs_r2": -0.2,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-87270923",
@@ -1200,19 +1224,19 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 48,
       "has_sf_score": true,
-      "sf_rank": 49,
+      "sf_rank": 50,
       "sf_score": 38.57,
       "sf_score_str": "38.57",
-      "sf_tjsj": "2026-11-08 15:36:38",
-      "sf_dfsj": "2026-11-08 15:37:25",
-      "sf_judge_sec": 47,
+      "sf_tjsj": "2026-11-08 15:50:27",
+      "sf_dfsj": "2026-11-08 15:51:20",
+      "sf_judge_sec": 53,
       "r2_rank": 50,
       "r2_score": 40.38,
       "r2_score_str": "40.38",
       "r2_tjsj": "2026-10-24 11:50:54",
       "delta_vs_r2": -1.81,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-88812567",
@@ -1225,7 +1249,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 49,
       "has_sf_score": true,
-      "sf_rank": 50,
+      "sf_rank": 51,
       "sf_score": 38.57,
       "sf_score_str": "38.57",
       "sf_tjsj": "2026-11-08 14:47:20",
@@ -1237,7 +1261,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-24 11:19:02",
       "delta_vs_r2": -1.81,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-69612453",
@@ -1250,7 +1274,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 70,
       "has_sf_score": true,
-      "sf_rank": 51,
+      "sf_rank": 52,
       "sf_score": 38.41,
       "sf_score_str": "38.41",
       "sf_tjsj": "2026-11-08 10:36:29",
@@ -1262,7 +1286,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-18 15:09:48",
       "delta_vs_r2": -0.53,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-14379556",
@@ -1275,7 +1299,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 65,
       "has_sf_score": true,
-      "sf_rank": 52,
+      "sf_rank": 53,
       "sf_score": 38.07,
       "sf_score_str": "38.07",
       "sf_tjsj": "2026-11-08 00:03:47",
@@ -1287,7 +1311,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-24 07:22:32",
       "delta_vs_r2": -1.03,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-40487261",
@@ -1300,7 +1324,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 76,
       "has_sf_score": true,
-      "sf_rank": 53,
+      "sf_rank": 54,
       "sf_score": 37.72,
       "sf_score_str": "37.72",
       "sf_tjsj": "2026-11-08 00:40:49",
@@ -1312,7 +1336,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-24 11:26:38",
       "delta_vs_r2": -1.1,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-14980607",
@@ -1323,7 +1347,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 72,
       "has_sf_score": true,
-      "sf_rank": 54,
+      "sf_rank": 55,
       "sf_score": 36.47,
       "sf_score_str": "36.47",
       "sf_tjsj": "2026-11-08 11:37:58",
@@ -1335,7 +1359,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-24 00:46:15",
       "delta_vs_r2": -2.43,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-53509421",
@@ -1346,7 +1370,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 33,
       "has_sf_score": true,
-      "sf_rank": 55,
+      "sf_rank": 56,
       "sf_score": 35.11,
       "sf_score_str": "35.11",
       "sf_tjsj": "2026-11-08 10:51:35",
@@ -1358,7 +1382,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-03 20:15:00",
       "delta_vs_r2": -6.68,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-37635525",
@@ -1371,7 +1395,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_award": "省赛二等奖",
       "r2_award_seq": 46,
       "has_sf_score": true,
-      "sf_rank": 56,
+      "sf_rank": 57,
       "sf_score": 33.62,
       "sf_score_str": "33.62",
       "sf_tjsj": "2026-11-08 11:17:14",
@@ -1383,7 +1407,7 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_tjsj": "2026-10-20 07:14:33",
       "delta_vs_r2": -6.94,
       "delta_vs_prev": 0.0,
-      "rank_delta_vs_prev": 0
+      "rank_delta_vs_prev": -1
     },
     {
       "csbh": "AIC-2026-95222683",
@@ -1625,30 +1649,6 @@ window.__INITIAL_SNAPSHOT__ = {
       "r2_score": 42.27,
       "r2_score_str": "42.27",
       "r2_tjsj": "2026-10-22 23:40:38",
-      "delta_vs_r2": null,
-      "delta_vs_prev": null,
-      "rank_delta_vs_prev": null
-    },
-    {
-      "csbh": "AIC-2026-96536018",
-      "tdmc": "LinkW",
-      "members": [
-        "汪俊军",
-        "陈浩"
-      ],
-      "r2_award": "省赛二等奖",
-      "r2_award_seq": 31,
-      "has_sf_score": false,
-      "sf_rank": null,
-      "sf_score": null,
-      "sf_score_str": "",
-      "sf_tjsj": "",
-      "sf_dfsj": "",
-      "sf_judge_sec": null,
-      "r2_rank": 31,
-      "r2_score": 42.06,
-      "r2_score_str": "42.06",
-      "r2_tjsj": "2026-10-24 01:50:03",
       "delta_vs_r2": null,
       "delta_vs_prev": null,
       "rank_delta_vs_prev": null
@@ -2075,6 +2075,34 @@ window.__INITIAL_SNAPSHOT__ = {
       "tjsj": "2026-11-08 18:05:55",
       "dfsj": "2026-11-08 18:06:47",
       "judge_sec": 52
+    },
+    {
+      "type": "new_submission",
+      "detected_at": "2026-11-08T19:07:44+08:00",
+      "csbh": "AIC-2026-96536018",
+      "tdmc": "LinkW",
+      "new_score": "43.01",
+      "prev_score": null,
+      "delta": null,
+      "new_rank": 24,
+      "prev_rank": null,
+      "tjsj": "2026-11-08 18:52:44",
+      "dfsj": "2026-11-08 18:52:54",
+      "judge_sec": 10
+    },
+    {
+      "type": "resubmit_same_score",
+      "detected_at": "2026-11-08T19:07:44+08:00",
+      "csbh": "AIC-2026-87270923",
+      "tdmc": "逐一队",
+      "new_score": "38.57",
+      "prev_score": "38.57",
+      "delta": 0.0,
+      "new_rank": 50,
+      "prev_rank": 49,
+      "tjsj": "2026-11-08 15:50:27",
+      "dfsj": "2026-11-08 15:51:20",
+      "judge_sec": 53
     }
   ],
   "history_snapshots_meta": [
@@ -2100,6 +2128,12 @@ window.__INITIAL_SNAPSHOT__ = {
       "snapshot_id": "20261108_181027",
       "captured_at": "2026-11-08T18:10:27+08:00",
       "scored_count": 56,
+      "top1_score": "48.76"
+    },
+    {
+      "snapshot_id": "20261108_190744",
+      "captured_at": "2026-11-08T19:07:44+08:00",
+      "scored_count": 57,
       "top1_score": "48.76"
     }
   ]
