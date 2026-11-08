@@ -644,19 +644,19 @@
       </div>
       <div class="metric-card">
         <div class="metric-label">
-          <span>半决赛较复赛涨分队伍</span>
-          <span class="badge badge-up" id="metricImprovedRatio">--</span>
+          <span>前 70% 分数线 (第53/54名)</span>
+          <span class="mono" style="font-size:11px">按77队基数</span>
         </div>
-        <div class="metric-value" id="metricImprovedCount">--</div>
-        <div class="metric-foot" id="metricMaxGainFoot">最大单队提分: --</div>
+        <div class="metric-value" id="metricLine70">--</div>
+        <div class="metric-foot" id="metricLine70Foot">按当前已出分前70%: --</div>
       </div>
       <div class="metric-card">
         <div class="metric-label">
-          <span>平台评测耗时 (中位数 / P80)</span>
-          <span class="badge badge-same">DFSJ - TJSJ</span>
+          <span>较复赛涨分 / 评测中位耗时</span>
+          <span class="badge badge-up" id="metricImprovedRatio">--</span>
         </div>
-        <div class="metric-value" id="metricJudgeMedian">--</div>
-        <div class="metric-foot" id="metricLastSubmitFoot">最近出分: --</div>
+        <div class="metric-value"><span id="metricImprovedCount">--</span> <span style="font-size:14px;color:var(--text-muted);" id="metricJudgeMedian">(--)</span></div>
+        <div class="metric-foot" id="metricMaxGainFoot">最大提分: --</div>
       </div>
     </section>
 
@@ -733,9 +733,9 @@
 
         <!-- Tab 3: Score Distribution & Cutoffs -->
         <div id="viewDistributionSection" class="subpanel-body hidden">
-          <h3 style="margin-top:0;">1. 分档分数线对比（按 77 支晋级总基数 vs 按当前已出分队伍数）</h3>
+          <h3 style="margin-top:0;">1. 分档分数线对比（15% / 40% / 70% 三档）</h3>
           <p style="color:var(--text-muted);font-size:12.5px;margin-top:-6px;">
-            注：国赛/半决赛具体获奖比例以组委会最终通知为准。下表提供各常用比例（10% / 15% / 25% / 30% / 40% / 50%）在两种分母口径下的实时门槛分数与守门员队伍：
+            下表提供 <b>15% / 40% / 70%</b> 三个累计档位在「按 77 支晋级总基数」与「按当前已出分队伍基数」两种口径下的实时门槛分数：
           </p>
           <div class="table-wrap" style="margin-bottom:22px;">
             <table>
@@ -1102,15 +1102,17 @@
             d1 !== null ? (d1 >= 0 ? `较复赛 +${d1.toFixed(2)}` : `较复赛 ${d1.toFixed(2)}`) : "—";
         }
 
-        // Line 15% & Line 40%
+        // Line 15%, 40%, 70%
         const getScoreAtRank = (r) => {
           const idx = r - 1;
           return idx >= 0 && idx < scoredTeams.length ? scoredTeams[idx].sf_score.toFixed(2) : "未满额";
         };
         const r15_77 = Math.floor(77 * 0.15); // 11
         const r40_77 = Math.floor(77 * 0.40); // 30
+        const r70_77 = Math.floor(77 * 0.70); // 53
         const r15_cur = Math.max(1, Math.floor(scoredTeams.length * 0.15));
         const r40_cur = Math.max(1, Math.floor(scoredTeams.length * 0.40));
+        const r70_cur = Math.max(1, Math.floor(scoredTeams.length * 0.70));
 
         document.getElementById("metricLine15").textContent = getScoreAtRank(r15_77);
         document.getElementById("metricLine15Foot").textContent =
@@ -1118,12 +1120,15 @@
         document.getElementById("metricLine40").textContent = getScoreAtRank(r40_77);
         document.getElementById("metricLine40Foot").textContent =
           `当前已出分前40% (第${r40_cur}名): ${getScoreAtRank(r40_cur)}`;
+        document.getElementById("metricLine70").textContent = getScoreAtRank(r70_77);
+        document.getElementById("metricLine70Foot").textContent =
+          `当前已出分前70% (第${r70_cur}名): ${getScoreAtRank(r70_cur)}`;
 
         // Improved vs R2
         const improvedTeams = scoredTeams.filter(t => t.delta_vs_r2 !== null && t.delta_vs_r2 > 0);
         const sameTeams = scoredTeams.filter(t => t.delta_vs_r2 !== null && Math.abs(t.delta_vs_r2) < 1e-6);
         document.getElementById("metricImprovedCount").textContent =
-          `${improvedTeams.length} 涨 / ${sameTeams.length} 平`;
+          `${improvedTeams.length}涨/${sameTeams.length}平`;
         document.getElementById("metricImprovedRatio").textContent =
           scoredTeams.length ? `占已出分 ${Math.round((improvedTeams.length / scoredTeams.length) * 100)}%` : "—";
         if (improvedTeams.length > 0) {
@@ -1136,13 +1141,7 @@
         const secs = scoredTeams.map(t => t.sf_judge_sec).filter(s => s !== null && s >= 0 && s < 7200).sort((a, b) => a - b);
         if (secs.length > 0) {
           const med = secs[Math.floor(secs.length * 0.5)];
-          const p80 = secs[Math.floor(secs.length * 0.8)];
-          document.getElementById("metricJudgeMedian").textContent = `${med}s / ${p80}s`;
-        }
-        const byDfsj = [...scoredTeams].filter(t => t.sf_dfsj).sort((a, b) => b.sf_dfsj.localeCompare(a.sf_dfsj));
-        if (byDfsj[0]) {
-          document.getElementById("metricLastSubmitFoot").textContent =
-            `最近出分: ${byDfsj[0].tdmc} (${formatRelativeTime(byDfsj[0].sf_dfsj)})`;
+          document.getElementById("metricJudgeMedian").textContent = `(中位耗时 ${med}s)`;
         }
 
         renderWatchlist(teams, scoredTeams);
@@ -1164,6 +1163,7 @@
         const top1Score = scoredTeams[0]?.sf_score ?? null;
         const line11Score = scoredTeams[10]?.sf_score ?? null;
         const line30Score = scoredTeams[29]?.sf_score ?? null;
+        const line53Score = scoredTeams[52]?.sf_score ?? null;
 
         container.innerHTML = starredTeams.map(t => {
           const deltaStr = t.delta_vs_r2 !== null
@@ -1174,9 +1174,11 @@
             const gap1 = (t.sf_score - top1Score).toFixed(2);
             const gap11 = line11Score !== null ? (t.sf_score - line11Score).toFixed(2) : "—";
             const gap30 = line30Score !== null ? (t.sf_score - line30Score).toFixed(2) : "—";
+            const gap53 = line53Score !== null ? (t.sf_score - line53Score).toFixed(2) : "—";
             gapHtml = `<span>距第1名: <b class="mono">${gap1}</b></span>
-                       <span>距第11名(15%): <b class="mono">${gap11 > 0 ? "+" + gap11 : gap11}</b></span>
-                       <span>距第30名(40%): <b class="mono">${gap30 > 0 ? "+" + gap30 : gap30}</b></span>`;
+                       <span>距15%(第11名): <b class="mono">${gap11 > 0 ? "+" + gap11 : gap11}</b></span>
+                       <span>距40%(第30名): <b class="mono">${gap30 > 0 ? "+" + gap30 : gap30}</b></span>
+                       <span>距70%(第53名): <b class="mono">${gap53 > 0 ? "+" + gap53 : gap53}</b></span>`;
           } else {
             gapHtml = `<span class="badge badge-wait">半决赛尚未出分</span>`;
           }
@@ -1300,11 +1302,11 @@
           if (showCutoffDividers && t.sf_rank === 11) {
             rowsHtml.push(`<tr class="cutoff-divider"><td colspan="10">▲ 以上为 77 支晋级队前 15% 边界（第 11 名，${t.sf_score.toFixed(2)} 分） ▲</td></tr>`);
           }
-          if (showCutoffDividers && t.sf_rank === 23) {
-            rowsHtml.push(`<tr class="cutoff-divider"><td colspan="10">▲ 以上为 77 支晋级队前 30% 边界（第 23 名，${t.sf_score.toFixed(2)} 分） ▲</td></tr>`);
-          }
           if (showCutoffDividers && t.sf_rank === 30) {
             rowsHtml.push(`<tr class="cutoff-divider"><td colspan="10">▲ 以上为 77 支晋级队前 40% 边界（第 30 名，${t.sf_score.toFixed(2)} 分） ▲</td></tr>`);
+          }
+          if (showCutoffDividers && t.sf_rank === 53) {
+            rowsHtml.push(`<tr class="cutoff-divider"><td colspan="10">▲ 以上为 77 支晋级队前 70% 边界（第 53 名，${t.sf_score.toFixed(2)} 分） ▲</td></tr>`);
           }
         });
 
@@ -1328,13 +1330,9 @@
 
       function renderDistribution(scoredTeams) {
         const tiers = [
-          { label: "Top 10% (冲刺顶尖)", ratio: 0.10 },
-          { label: "Top 15% (一等参考线)", ratio: 0.15 },
-          { label: "Top 25% (前四分之一)", ratio: 0.25 },
-          { label: "Top 30% (核心获奖区)", ratio: 0.30 },
-          { label: "Top 40% (前四成参考线)", ratio: 0.40 },
-          { label: "Top 50% (中位线)", ratio: 0.50 },
-          { label: "Top 80% (完赛覆盖区)", ratio: 0.80 }
+          { label: "前 15% 档位 (15%)", ratio: 0.15 },
+          { label: "前 40% 档位 (40%)", ratio: 0.40 },
+          { label: "前 70% 档位 (70%)", ratio: 0.70 }
         ];
         const firstStarred = scoredTeams.find(t => appState.starred.has(t.csbh));
 
