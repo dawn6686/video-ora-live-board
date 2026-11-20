@@ -1,9 +1,9 @@
 window.__INITIAL_SNAPSHOT__ = {
   "competition": "基于视频大模型的通用视频高光剪辑",
   "stage": "半决赛（国赛晋级池 77 支队伍）",
-  "snapshot_id": "20261120_121431",
-  "captured_at": "2026-11-20T12:14:31+08:00",
-  "platform_create_time": "2026-11-20 12:14:33",
+  "snapshot_id": "20261120_205356",
+  "captured_at": "2026-11-20T20:53:56+08:00",
+  "platform_create_time": "2026-11-20 20:53:57",
   "api_url": "https://jluat-smart-app-api.yuntu.cn/third/jsphb",
   "source_url": "https://reg.aicomp.cn/special/phb/detail?id=4843470003011457070&rwId=4863942083800600605&stbh=4863942083800600619",
   "request_params": {
